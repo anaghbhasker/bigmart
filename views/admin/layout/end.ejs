@@ -1,0 +1,29 @@
+<script>
+  function adminLogin() {
+    $(".error").css("display","none");
+    let adminEmail = document.getElementById("email").value;
+    let adminPassword = document.getElementById("password").value;
+    $.ajax({
+      url: "/admin/login",
+      data: {
+        adminEmail,
+        adminPassword,
+      },
+      method: "post",
+      success: (response) => {
+        console.log(response);
+        if ((response.status == true)) {
+          location.href = "/admin";
+        } else {
+          $("#password").after(
+            `<span class="error text-danger"> ${response.errorEmail}</span>`);
+        }
+      },
+    });
+  }
+  window.addEventListener('keypress',(key)=>{
+    if(key.key == 'Enter'){
+        adminLogin()
+    }
+  })
+</script>

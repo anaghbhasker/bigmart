@@ -1,0 +1,74 @@
+<%- include('./layout/main'); -%> <%- include('./layout/header'); -%>
+
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Proudcts</h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Product image</th>
+                    <th>Product name</th>
+                    <th>Brand</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Stock</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                 <% producDetails.forEach(product => { %>
+ 
+                  <tr>
+                    <td>
+                      <div class="form-check form-check-muted m-0">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" />
+                        </label>
+                      </div>
+                    </td>
+                    <td>
+                      <img src="data:<%= product.contentType %>;base64,<%= product.imageBase64 %>" alt="image" style="width: 70px; height: 70px;" class="ml-4">
+                    </td>
+                    <td><%= product.name %></td>
+                    <td><%= product.brand %></td>
+                    <td><%= product.category.category_name %></td>
+                    <td><%= product.price %> Rs</td>
+                    <td><%= product.discount %>%</td>
+                    <td><%= product.stock %></td>
+                    <td>
+                      <a href="">
+                        <span class="material-symbols-outlined text-success">
+                          edit
+                        </span>
+                      </a>
+                      <a href="/admin/deleteProduct?id=<%= product._id %>">
+                        <span
+                          class="material-symbols-outlined text-danger ml-4">
+                          delete
+                        </span>
+                      </a>
+                    </td>
+                  </tr>
+
+                  <% }) %>
+
+          </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('./layout/footer'); -%>

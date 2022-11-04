@@ -1,0 +1,136 @@
+<%- include('./layout/main'); -%> <%- include('./layout/header'); -%>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Add Product</h4>
+                <form class="forms-sample" action="/admin/addProducts" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="exampleInputName1">Name</label>
+                    <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="productname">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail3">Descripition</label>
+                    <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Descripition" name="productdescripition">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword4">Brand</label>
+                    <input type="text" class="form-control" id="exampleInputPassword4" placeholder="Brand" name="productbrand">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleSelectGender">Category</label>
+                    <select class="form-control" id="exampleSelectGender" name="productcategory">
+
+                      <% categoryDetails.forEach(category => { %>
+
+                        <option value="<%= category._id %>"><%= category.category_name %></option>
+                        
+                        <% }) %>
+
+                    </select>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Price</h4>
+                    <div class="form-group row">
+                      <div class="col">
+                        <label>Original Price</label>
+                        <div id="the-basics">
+                          <input class="typeahead" type="number" placeholder="Original Price" name="productprice">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label>Discount</label>
+                        <div id="bloodhound">
+                          <input class="typeahead" type="number" placeholder="Discount" name="productdiscount">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Inventory</h4>
+                    
+                    <div class="form-group row">
+                      <div class="col">
+                        <label>Stock</label>
+                        <div id="the-basics">
+                          <input class="typeahead" type="number" placeholder="Stock" name="productstock">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label>Tages</label>
+                        <div id="bloodhound">
+                          
+                          <input class="typeahead" type="text" placeholder="" name="producttage">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+         <div class="col-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+                     <div class="form-group">
+                    <label>Image</label>
+                    <input type="file" name="img[]" class="file-upload-default">
+                    <div class="mb-3">  
+                    <input class="form-control" type="file" id="formFile" name="productimage">
+                    </div>
+                    </div>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <button class="btn btn-dark">Cancel</button>
+            </div>
+          </div>
+        </div> 
+    </form> 
+    
+    
+
+    
+
+
+    </div>
+</div>
+
+  
+
+
+
+
+
+
+   
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <%- include('./layout/footer'); -%>
+
