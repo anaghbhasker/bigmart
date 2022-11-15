@@ -36,7 +36,8 @@
                       </div>
                     </td>
                     <td>
-                      <img src="data:<%= product.contentType %>;base64,<%= product.imageBase64 %>" alt="image" style="width: 70px; height: 70px;" class="ml-4">
+
+                      <img src="data:<%= product.product_image[0].contentType %>;base64,<%= product.product_image[0].imageBase64 %>" alt="image" style="width: 70px; height: 70px;" class="ml-4">
                     </td>
                     <td><%= product.name %></td>
                     <td><%= product.brand %></td>
@@ -45,7 +46,7 @@
                     <td><%= product.discount %>%</td>
                     <td><%= product.stock %></td>
                     <td>
-                      <a href="">
+                      <a href="/admin/editproduct?id=<%= product._id %>">
                         <span class="material-symbols-outlined text-success">
                           edit
                         </span>

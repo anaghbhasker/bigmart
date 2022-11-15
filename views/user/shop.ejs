@@ -1,0 +1,269 @@
+<%- include('./layout/main'); -%> <%- include('./layout/popup'); -%>
+<%-include('./layout/header'); -%>
+
+<div class="page-path">
+  <div class="container">
+    <div class="breadcrumbs-inner">
+      <h1 class="path-title">Shop</h1>
+    </div>
+  </div>
+</div>
+
+<!--================= Shop Section Start Here =================-->
+<div class="rts-shop-section section-gap">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-3">
+        <div class="side-sticky">
+          <div class="shop-side-action">
+            <div class="action-item">
+              <div class="action-top">
+                <span class="action-title">category</span>
+              </div>
+              <% categoryDetails.forEach(category => { %>
+              <div class="category-item">
+                <div class="category-item-inner">
+                  <div class="category-title-area">
+                    <div class="form-check form-check-muted m-0">
+                      <label class="form-check-label"> </label>
+                    </div>
+                    <span
+                      class="category-title"
+                      onclick="getCategory('<%= category._id %>')"
+                      ><%= category.category_name %>(10)</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-9">
+        <div class="products-area products-area3">
+          <div class="row" id="products">
+            <% productDetails.forEach(prod => { %>
+
+            <div class="col-xl-4 col-md-4 col-sm-6">
+              <div
+                class="product-item product-item2 element-item3 sidebar-left"
+              >
+                <a
+                  href="/productDetail?id=<%= prod._id %>"
+                  class="product-image"
+                >
+                  <img
+                    src="data:<%= prod.product_image[0].contentType %>;base64,<%= prod.product_image[0].imageBase64 %>"
+                    alt="product-image"
+                  />
+                </a>
+                <div class="bottom-content">
+                  <a href="" class="product-name"><%= prod.name %></a>
+                  <div class="action-wrap">
+                    <span class="product-price"><%= prod.price %>₹</span>
+
+
+                    <% if (typeof(user) == "undefined" || !user ) { %>
+
+                      <a onclick="pleaselogin()" class="addto-cart"><i class="fal fa-shopping-cart"></i> Add To Cart</a>
+
+                      <% } else { %>
+
+                        <a onclick="addCArt('<%= prod._id %>')" class="addto-cart"><i class="fal fa-shopping-cart"></i> Add To Cart</a>
+
+
+                      <% } %>
+
+                    
+
+
+
+
+                  </div>
+                </div>
+                <div class="product-actions">
+                  
+
+
+
+
+
+                    <% if (typeof(user) == "undefined" || !user ) { %>
+
+                      <a onclick="pleaselogin()" class="product-action"><i class="fal fa-heart"></i></a>
+                    <% } else { %>
+                      <a onclick="addWishlist('<%= prod._id %>')" class="product-action"><i class="fal fa-heart"></i> </a>
+
+                    <% } %>
+
+
+
+
+                 
+                </div>
+              </div>
+            </div>
+
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--================= Shop Section Section End Here =================-->
+
+
+<script>
+  function pleaselogin() {
+    Swal.fire("BigMart", "Please Login your Account", "question");
+  }
+
+
+  function addCArt(id) {
+    $.ajax({
+      url:`/addCart?id=${id}`,
+      method:"get",
+      success:(response)=>{
+        if (response.status === "success") {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Product added to Cart",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Product already in your Cartlist!",
+          });
+        }    
+
+      }
+    })
+  }
+
+
+  function addWishlist(id) {
+    $.ajax({
+      url: `/addWishlist?id=${id}`,
+      method: "get",
+      success: (response) => {
+        if (response.status === "success") {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Product added to Wishlist",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Product already in your Wishlist!",
+          });
+        }
+      },
+    });
+  }
+
+
+
+</script>
+
+
+
+
+
+
+
+
+<script>
+  function getCategory(id) {
+    $.ajax({
+      url: `/getCategory?id=${id}`,
+      method: "get",
+      success: function (product) {
+        let html = "";
+        for (var i = 0; i < product.length; i++) {
+          html += `<div class="col-xl-4 col-md-4 col-sm-6">
+                                <div class="product-item product-item2 element-item3 sidebar-left">
+                                    <a href="/productDetail?id=${product[i]._id}" class="product-image">
+                                        <img src="data:${product[i].product_image[i].contentType};base64,${product[i].product_image[i].imageBase64}" alt="product-image">
+                                    </a>
+                                    <div class="bottom-content">
+                                        <a href="product-details.html" class="product-name">${product[i].name}</a>
+                                        <div class="action-wrap">
+                                            <span class="product-price">${product[i].price}₹</span>
+
+
+
+                                            <% if (typeof(user) == "undefined" || !user ) { %>
+
+                                           <a onclick="pleaselogin()" class="addto-cart"><i class="fal fa-shopping-cart"></i> Add To Cart</a>
+
+                                                         <% } else { %>
+
+                                                        <a onclick="addCArt('${product[i]._id}')" class="addto-cart"><i class="fal fa-shopping-cart"></i> Add To Cart</a>
+
+
+                                                      <% } %>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="product-actions">
+
+
+
+
+                                      <% if (typeof(user) == "undefined" || !user ) { %>
+
+                                      <a onclick="pleaselogin()" class="product-action"><i class="fal fa-heart"></i></a>
+                                      <% } else { %>
+                                       <a onclick="addWishlist('${product[i]._id}')" class="product-action"><i class="fal fa-heart"></i> </a>
+
+                                      <% } %>
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>`;
+        }
+        $("#products").html(html);
+      },
+    });
+  }
+
+
+
+  
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include('./layout/footer'); -%>

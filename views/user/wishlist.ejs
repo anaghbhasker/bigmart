@@ -1,0 +1,107 @@
+<%- include('./layout/main'); -%><%- include('./layout/header'); -%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--================= Cart Section Start Here =================-->
+<div class="rts-wishlist-section section-gap">
+    <div class="container">
+        
+
+
+
+
+
+
+
+        <% if (productsDetails.wishlist.length==0) { %>
+        
+
+            
+                
+                    
+            
+            <div class="thanks-area">
+                <div class="container">
+                    <div class="section-inner">
+                        
+                        <div class="section-title">
+                            <h2 class="sub-title">Wishlist is empty!</h2>
+                            <h3 class="sect-title">No products were added to the Wish List.</h3>
+                        </div>
+                        <div class="section-button">
+                            <a class="btn-1" href="/shopPage"><i class="fal fa-long-arrow-left"></i> Go To Shoppage</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+                               
+
+            <% } else { %>
+
+                       <% for( let i = 0; i < productsDetails.wishlist.length; i++ ) { %>
+
+
+
+   
+       
+                             <table class="table table-bordered table-hover">
+                                  <tbody>
+                                  <tr class="heading">
+                                  <th></th>
+                                   <th>Product Name</th>
+                               <th>Unit Price</th>
+                               <th>Stock Status</th>
+                                <th></th>
+                              </tr>
+                              </tbody>
+                          <tbody>
+
+                      <tr>
+                <td class="first-td"><a href="/removewishlist?id=<%= productsDetails.wishlist[i]._id %>"><button class="remove-btn"><i class="fal fa-times"></i></button></td></a>
+                <td class="first-child"><a href="/productDetail?id=<%= productsDetails.wishlist[i]._id %>" style="height: 100px; width: 100px;"><img
+                            src="data:<%= productsDetails.wishlist[i].product_image[0].contentType %>;base64,<%= productsDetails.wishlist[i].product_image[0].imageBase64 %>" alt=""></a>
+                    <a href="/productDetail?id=<%= productsDetails.wishlist[i]._id %>" class="pretitle"><%= productsDetails.wishlist[i].name %></a>
+                </td>
+                </td>
+                <td><span class="product-price"><%= productsDetails.wishlist[i].price %>₹</span></td>
+                <td class="stock">In Stock</td>
+                </td>
+                <td class="last-td"><button class="cart-btn"><i class="rt-basket-shopping"></i> Add To
+                        Cart</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+        <% } %> 
+
+   
+                
+                <% } %>
+
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<%- include('./layout/footer'); -%>

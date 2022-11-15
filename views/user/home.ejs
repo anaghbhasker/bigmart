@@ -1,411 +1,407 @@
-<%- include('./layout/main'); -%>
+<%- include('./layout/main'); -%> <%- include('./layout/popup'); -%> <%-
+include('./layout/header'); -%>
 
 
-  <%- include('./layout/header'); -%>
 
-  <!-- banner -->
+<!--================= Banner Section Start Here =================-->
+        <div class="banner banner-3">
+            <div class="swiper bannerSlide">
+                <div class="swiper-wrapper">
 
-  <!-- <div
-    class="hero-wrap"
-    style="background-image: url('images/banner1.jpg')"
-    data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row no-gutters slider-text align-items-center justify-content-center">
-        <div class="col-md-8 ftco-animate d-flex align-items-end">
-          <div class="text w-100 text-center">
-            <h1 class="mb-4">
-              Good <span>Vegitables</span> for Good <span>Moments</span>.
-            </h1>
-            <p> 
-              <a href="#" class="btn btn-white btn-outline-white py-2 px-4">Shop now</a>
-            </p>
-          </div>
+
+
+<% bannerDetails.forEach(banner => { %>
+ 
+
+
+                    <div class="swiper-slide">
+                        <div class="banner-single bg-image bg-image-3">
+                            <div class="container">
+                                <div class="single-inner">
+                                    <div class="contents">
+                                        <span class="banner-pretitle-box">Hot Deal In This Week</span>
+                                        <h1 class="banner-heading mb--30">
+                                            <%= banner.banner_tittle %></h1>
+                                        <div class="banner-action">
+                                            <a class="banner-btn banner-btn2" href="/shoppage"><i
+                                                    class="rt-cart-shopping"></i>Shop
+                                                Now</a>
+                                            <div class="banner-review">
+                                                <div class="review">
+                                                    <div class="star"><i class="fas fa-star"></i></div>
+                                                    <div class="star"><i class="fas fa-star"></i></div>
+                                                    <div class="star"><i class="fas fa-star"></i></div>
+                                                    <div class="star"><i class="fas fa-star"></i></div>
+                                                    <div class="star"><i class="fal fa-star"></i></div>
+                                                </div>
+                                                <span class="review-text"><span class="value">100+</span> Review</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="banner-product-thumb"><img style="height: 1000px;"
+                                            src="data:<%= banner.contentType %>;base64,<%= banner.imageBase64 %>" alt="banner-product"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% }) %>
+
+
+                    
+                </div>
+                <div class="slider-navigation">
+                    <div class="swiper-button-prev slider-btn prev"><i class="fal fa-long-arrow-up"></i></div>
+                    <div class="swiper-button-next slider-btn next"><i class="fal fa-long-arrow-down"></i>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        <!--================= Banner Section End Here =================-->
+
+<!--================= Offer Section Start Here =================-->
+<div class="rts-offer-section">
+  <div class="container">
+    <div class="rts-offer-inner">
+      <p class="description">
+        Super discount for your 100$ purchase. Use this code
+        <a href="">OFFER100</a>
+      </p>
     </div>
-  </div>  -->
-
- 
-
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="user/images/banner1.jpg" class="d-block w-100 hero-wrap" > 
-      </div>
-      <div class="carousel-item " >
-        <img src="user/images/banner2.jpg" class="d-block w-100 hero-wrap" >
-      </div>
-      <div class="carousel-item">
-        <img src="user/images/banner3.jpg" class="d-block w-100 hero-wrap" >
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
-      <span  class="carousel-control-prev-icon" aria-hidden="true"></span>
- 
-    </button>
-    <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-
-    </button>
   </div>
+</div>
+<!--================= Offer Section End Here =================-->
 
+<!--================= Category Section Start Here =================-->
+<div class="rts-new-collection-section section-gap">
+  <div class="container">
+    <div class="recent-products-header section-header"></div>
+    <div class="swiper rts-cmmnSlider-over" data-swiper="pagination">
+      <div class="swiper-wrapper">
+        <% categoryDetails.forEach(category => { %>
 
-
-
-
-  
-  <!-- banner -->
-
-
-
-
-
-  <section class="ftco-section ftco-no-pb">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-2 col-md-4">
-          <div class="sort w-100 text-center ftco-animate">
-            <div
-              class="img"
-              style="background-image: url(images/households.webp)"
-            ></div>
-            <h3>House Holds</h3>
+        <div class="swiper-slide">
+          <div class="collection-item">
+            <a href="#"
+              ><img
+                src="data:<%= category.contentType %>;base64,<%= category.imageBase64 %>"
+                alt="collection-image"
+                style="height: 400px; width: 500px"
+              />
+            </a>
+            <p class="item-quantity">20 <span>items</span></p>
+            <a href="category.html" class="item-catagory-box">
+              <h3 class="title"><%= category.category_name %></h3>
+            </a>
           </div>
         </div>
-        <div class="col-lg-2 col-md-4">
-          <div class="sort w-100 text-center ftco-animate">
-            <div
-              class="img"
-              style="background-image: url(images/vegitables.webp)"
-            ></div>
-            <h3>Vegitables</h3>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-4">
-          <div class="sort w-100 text-center ftco-animate">
-            <div
-              class="img"
-              style="background-image: url(images/fruits.jpeg)"
-            ></div>
-            <h3>Fruits</h3>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-4">
-          <div class="sort w-100 text-center ftco-animate">
-            <div
-              class="img"
-              style="background-image: url(images/beverages.jpg)"
-            ></div>
-            <h3>Beverages</h3>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-4">
-            <div class="sort w-100 text-center ftco-animate">
-              <div
-                class="img"
-                style="background-image: url(images/frozenfoods.webp)"
-              ></div>
-              <h3>Frozen Foods</h3>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-4">
-            <div class="sort w-100 text-center ftco-animate">
-              <div
-                class="img"
-                style="background-image: url(images/petfoods.jpg)"
-              ></div>
-              <h3>Pet Foods</h3>
-            </div>
-          </div>
+
+        <% }) %>
       </div>
     </div>
-  </section>
+  </div>
+</div>
+<!--================= Category Section End Here =================-->
 
-  <section class="ftco-section">
-    <div class="container">
-      <div class="row justify-content-center pb-5">
-        <div class="col-md-7 heading-section text-center ftco-animate">
-          <span class="subheading">Our Delightful offerings</span>
-          <h2>Product Yours</h2>
+<!--================= Hand Picked Section Start Here =================-->
+<div class="rts-hand-picked-products-section">
+  <div class="container">
+    <div class="section-header section-header3 text-center">
+      <div class="wrapper">
+        <div class="sub-content">
+          <img class="line-1" src="assets/images/banner/wvbo-icon.png" alt="" />
+          <span class="sub-text">Featured</span>
+          <img class="line-2" src="assets/images/banner/wvbo-icon.png" alt="" />
+        </div>
+        <h2 class="title">HAND-PICKED PRODUCT</h2>
+      </div>
+    </div>
+    <div class="slider-div">
+      <div class="swiper rts-sixSlide-over">
+        <div class="swiper-wrapper">
+          <% productDetails.forEach(products => { %>
+
+          <div class="swiper-slide">
+            <div class="product-item element-item1">
+              <a class="product-image image-hover-variations">
+                <div class="image-vari1 image-vari">
+                  <img
+                    src="data:<%= products.product_image[0].contentType %>;base64,<%= products.product_image[0].imageBase64 %>"
+                    alt="product-image"
+                    height="300px"
+                  />
+                </div>
+                <div class="image-vari2 image-vari">
+                  <img
+                    src="data:<%= products.product_image[1].contentType %>;base64,<%= products.product_image[1].imageBase64 %>"
+                    alt="product-image"
+                    height="300px"
+                  />
+                </div>
+              </a>
+              <div class="bottom-content">
+                <a href="#" class="product-name"><%= products.name %></a>
+                <div class="action-wrap">
+                  <span class="price">₹<%= products.price %></span>
+                </div>
+              </div>
+              <div class="quick-action-button">
+                <div class="cta-single cta-plus">
+                  <a href="#"><i class="rt-plus"></i></a>
+                </div>
+                <div class="cta-single cta-quickview">
+                  <button
+                    onclick="quickView('<%= products._id %>')"
+                    class="product-details-popup-btn"
+                  >
+                    <i class="far fa-eye"></i>
+                  </button>
+                </div>
+
+
+
+
+
+
+
+
+                <% if (typeof(user) == "undefined" || !user ) { %>
+
+                <div class="cta-single cta-wishlist">
+                  <a onclick="pleaselogin()"><i class="far fa-heart"></i></a>
+                </div>
+                <div class="cta-single cta-addtocart">
+                  <a onclick="pleaselogin()"><i class="fa fa-cart-plus"></i></a>
+                </div>
+
+                <% } else { %>
+
+                <div id="like" class="cta-single cta-wishlist">
+                  <a onclick="addWishlist('<%= products._id %>')"
+                    ><i class="far fa-heart"></i
+                  ></a>
+                </div>
+
+                <div class="cta-single cta-addtocart">
+                  <a onclick="addCArt('<%= products._id %>')"><i class="fa fa-cart-plus"></i></a>
+                </div>
+
+                <% } %>
+
+
+
+
+
+
+
+
+
+
+                
+              </div>
+              <div class="product-features">
+                <div class="discount-tag product-tag">
+                  <%= products.discount %>%
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% }) %>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-3 d-flex">
-          <div class="product ftco-animate">
-            <div
-              class="img d-flex align-items-center justify-content-center"
-              style="background-image: url(images/prod1.jpg)"
-            >
-              <div class="desc">
-                <p class="meta-prod d-flex">
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-shopping-bag"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-heart"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-visibility"></span
-                  ></a>
-                </p>
-              </div>
-            </div>
-            <div class="text text-center">
-              <span class="sale">Sale</span>
-              <span class="category">Households</span>
-              <h2>Dishwash gel, lemon (1.5 ltr)</h2>
-              <p class="mb-0">
-                <span class="price price-sale">$69.00</span>
-                <span class="price">$49.00</span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 d-flex">
-          <div class="product ftco-animate">
-            <div
-              class="img d-flex align-items-center justify-content-center"
-              style="background-image: url(images/prod2.jpg)"
-            >
-              <div class="desc">
-                <p class="meta-prod d-flex">
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-shopping-bag"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-heart"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-visibility"></span
-                  ></a>
-                </p>
-              </div>
-            </div>
-            <div class="text text-center">
-              <span class="seller">Best Seller</span>
-              <span class="category">Vegitables</span>
-              <h2>Cauliflower(1 kg)</h2>
-              <span class="price">$69.00</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 d-flex">
-          <div class="product ftco-animate">
-            <div
-              class="img d-flex align-items-center justify-content-center"
-              style="background-image: url(images/prod3.jpg)"
-            >
-              <div class="desc">
-                <p class="meta-prod d-flex">
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-shopping-bag"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-heart"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-visibility"></span
-                  ></a>
-                </p>
-              </div>
-            </div>
-            <div class="text text-center">
-              <span class="new">New Arrival</span>
-              <span class="category">Fruits</span>
-              <h2>Banana(1 kg)</h2>
-              <span class="price">$69.00</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 d-flex">
-          <div class="product ftco-animate">
-            <div
-              class="img d-flex align-items-center justify-content-center"
-              style="background-image: url(images/prod4.jpg)"
-            >
-              <div class="desc">
-                <p class="meta-prod d-flex">
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-shopping-bag"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-heart"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-visibility"></span
-                  ></a>
-                </p>
-              </div>
-            </div>
-            <div class="text text-center">
-              <span class="category">Beverages</span>
-              <h2>Orange soft drink (750 ml)</h2>
-              <span class="price">$69.00</span>
-            </div>
-          </div>
-        </div>
+    </div>
+  </div>
+</div>
+<!--================= Hand Picked Section End Here =================-->
 
-        <div class="col-md-3 d-flex">
-          <div class="product ftco-animate">
+<!--================= Product-details Section Start Here =================-->
+<div class="product-details-popup-wrapper">
+  <div
+    class="rts-product-details-section rts-product-details-section2 product-details-popup-section"
+  >
+    <div class="product-details-popup">
+      <button class="product-details-close-btn">
+        <i class="fal fa-times"></i>
+      </button>
+      <div class="details-product-area">
+        <div class="product-thumb-area">
+          <div class="cursor"></div>
+          <div class="thumb-wrapper one filterd-items figure">
             <div
-              class="img d-flex align-items-center justify-content-center"
-              style="background-image: url(images/prod5.jpg)"
+              class="product-thumb zoom"
+              onmousemove="zoom(event)"
+              id="Backimage1"
+              style="background-image: url()"
             >
-              <div class="desc">
-                <p class="meta-prod d-flex">
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-shopping-bag"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-heart"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-visibility"></span
-                  ></a>
-                </p>
-              </div>
+              <img id="Showimage1" src="" alt="product-thumb" />
             </div>
-            <div class="text text-center">
-              <span class="category">Frozenfoods</span>
-              <h2>Pepper salami (250 gm)</h2>
-              <span class="price">$69.00</span>
+          </div>
+          <div class="thumb-wrapper two filterd-items hide">
+            <div
+              class="product-thumb zoom"
+              onmousemove="zoom(event)"
+              id="Backimage2"
+              style="background-image: url()"
+            >
+              <img id="Showimage2" src="" alt="product-thumb" />
+            </div>
+          </div>
+
+          <div class="product-thumb-filter-group">
+            <div class="thumb-filter filter-btn active" data-show=".one">
+              <img id="Downimage1" src="" alt="product-thumb-filter" />
+            </div>
+            <div class="thumb-filter filter-btn" data-show=".two">
+              <img id="Downimage2" src="" alt="product-thumb-filter" />
             </div>
           </div>
         </div>
-        <div class="col-md-3 d-flex">
-          <div class="product ftco-animate">
-            <div
-              class="img d-flex align-items-center justify-content-center"
-              style="background-image: url(images/prod6.jpg)"
-            >
-              <div class="desc">
-                <p class="meta-prod d-flex">
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-shopping-bag"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-heart"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-visibility"></span
-                  ></a>
-                </p>
+        <div class="contents">
+          <div class="product-status">
+            <span class="product-catagory" id="category">Dress</span>
+            <div class="rating-stars-group">
+              <div class="rating-star"><i class="fas fa-star"></i></div>
+              <div class="rating-star"><i class="fas fa-star"></i></div>
+              <div class="rating-star">
+                <i class="fas fa-star-half-alt"></i>
               </div>
-            </div>
-            <div class="text text-center">
-              <span class="category">Petfoods</span>
-              <h2>Gravy food for dogs (20 kg)</h2>
-              <span class="price">$69.00</span>
+              <span>10 Reviews</span>
             </div>
           </div>
-        </div>
-        <div class="col-md-3 d-flex">
-          <div class="product ftco-animate">
-            <div
-              class="img d-flex align-items-center justify-content-center"
-              style="background-image: url(images/prod7.jpg)"
-            >
-              <div class="desc">
-                <p class="meta-prod d-flex">
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-shopping-bag"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-heart"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-visibility"></span
-                  ></a>
-                </p>
-              </div>
-            </div>
-            <div class="text text-center">
-              <span class="category">Vegitables</span>
-              <h2>White onion</h2>
-              <span class="price">$69.00</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 d-flex">
-          <div class="product ftco-animate">
-            <div
-              class="img d-flex align-items-center justify-content-center"
-              style="background-image: url(images/prod8.jpg)"
-            >
-              <div class="desc">
-                <p class="meta-prod d-flex">
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-shopping-bag"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-heart"></span
-                  ></a>
-                  <a
-                    href="#"
-                    class="d-flex align-items-center justify-content-center"
-                    ><span class="flaticon-visibility"></span
-                  ></a>
-                </p>
-              </div>
-            </div>
-            <div class="text text-center">
-              <span class="category">Fruits</span>
-              <h2>Strwberry</h2>
-              <span class="price">$69.00</span>
-            </div>
+          <h2 class="product-title" id="name">
+            <span class="stock">In Stock</span>
+          </h2>
+          <span class="product-price" id="price"></span
+          ><span class="old-price"><h3>₹</h3></span>
+          <p id="description"></p>
+          
+          <div class="product-uniques">
+            <span>Brand: </span
+            ><span class="sku product-unipue" id="brand"></span>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</div>
+<!--================= Product-details Section End Here =================-->
 
-  <%- include('./layout/footer'); -%>
-</body>
+
+
+
+
+
+
+
+
+
+
+<script>
+  function pleaselogin() {
+    Swal.fire("BigMart", "Please Login your Account", "question");
+  }
+
+  function addCArt(id) {
+    $.ajax({
+      url:`/addCart?id=${id}`,
+      method:"get",
+      success:(response)=>{
+        if (response.status === "success") {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Product added to Cart",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Product already in your Cartlist!",
+          });
+        }    
+
+      }
+    })
+  }
+
+  function addWishlist(id) {
+    $.ajax({
+      url: `/addWishlist?id=${id}`,
+      method: "get",
+      success: (response) => {
+        if (response.status === "success") {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Product added to Wishlist",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Product already in your Wishlist!",
+          });
+        }
+      },
+    });
+  }
+
+  function quickView(id) {
+    $.ajax({
+      url: `/productQuickview?id=${id}`,
+      success: function (productDetails) {
+        $("#name").html(productDetails.name);
+        $("#price").html(productDetails.price);
+        $("#description").html(productDetails.description);
+        $("#category").html(productDetails.category.category_name);
+        $("#brand").html(productDetails.brand);
+
+        let img1 =
+          "data:" +
+          productDetails.product_image[0].contentType +
+          ";base64," +
+          productDetails.product_image[0].imageBase64;
+        $("#Downimage1").attr("src", img1);
+        let img2 =
+          "data:" +
+          productDetails.product_image[1].contentType +
+          ";base64," +
+          productDetails.product_image[1].imageBase64;
+        $("#Downimage2").attr("src", img2);
+
+        let img3 =
+          "data:" +
+          productDetails.product_image[0].contentType +
+          ";base64," +
+          productDetails.product_image[0].imageBase64;
+        $("#Showimage1").attr("src", img3);
+        let img4 =
+          "data:" +
+          productDetails.product_image[1].contentType +
+          ";base64," +
+          productDetails.product_image[1].imageBase64;
+        $("#Showimage2").attr("src", img4);
+
+        let img5 =
+          "data:" +
+          productDetails.product_image[0].contentType +
+          ";base64," +
+          productDetails.product_image[0].imageBase64;
+        $("#Backimage1").css("background-image", "url(" + img5 + ")");
+        let img6 =
+          "data:" +
+          productDetails.product_image[1].contentType +
+          ";base64," +
+          productDetails.product_image[1].imageBase64;
+        $("#Backimage2").css("background-image", "url(" + img6 + ")");
+      },
+    });
+  }
+</script>
+
+<%- include('./layout/footer'); -%>

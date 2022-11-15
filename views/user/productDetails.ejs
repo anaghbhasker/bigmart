@@ -1,0 +1,178 @@
+<%- include('./layout/main'); -%><%-include('./layout/header'); -%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="rts-product-details-section section-gap">
+    <div class="container">
+        <div class="details-product-area mb--70">
+            <div class="product-thumb-area">
+                <div class="cursor"></div>
+                <div class="thumb-wrapper one filterd-items figure" style="height: 60%; width: 300px;">
+                    <div class="product-thumb zoom" onmousemove="zoom(event)"
+                        style="background-image: url('data:<%= productDetails.product_image[0].contentType %>;base64,<%= productDetails.product_image[0].imageBase64 %>')"><img
+                            src="data:<%= productDetails.product_image[0].contentType %>;base64,<%= productDetails.product_image[0].imageBase64 %>" alt="product-thumb">
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+                
+                <div class="thumb-wrapper three filterd-items hide" style="height: 60%; width: 300px;">
+                    <div class="product-thumb zoom" onmousemove="zoom(event)"
+                        style="background-image: url('data:<%= productDetails.product_image[1].contentType %>;base64,<%= productDetails.product_image[1].imageBase64 %>')"><img
+                            src="data:<%= productDetails.product_image[1].contentType %>;base64,<%= productDetails.product_image[1].imageBase64 %>" alt="product-thumb">
+                    </div>
+                </div>
+
+
+
+                <div class="product-thumb-filter-group">
+                    <div class="thumb-filter filter-btn active" data-show=".one"><img
+                            src="data:<%= productDetails.product_image[0].contentType %>;base64,<%= productDetails.product_image[0].imageBase64 %>" alt="product-thumb-filter"></div>
+                   
+                    <div class="thumb-filter filter-btn" data-show=".three"><img
+                            src="data:<%= productDetails.product_image[1].contentType %>;base64,<%= productDetails.product_image[1].imageBase64 %>" alt="product-thumb-filter"></div>
+                </div>
+            </div>
+            <div class="contents">
+                <div class="product-status">
+                    <span class="product-catagory"><%= productDetails.category.category_name %></span>
+                    <div class="rating-stars-group">
+                        <div class="rating-star"><i class="fas fa-star"></i></div>
+                        <div class="rating-star"><i class="fas fa-star"></i></div>
+                        <div class="rating-star"><i class="fas fa-star-half-alt"></i></div>
+                        
+                    </div>
+                </div>
+                <h2 class="product-title"><%= productDetails.name %><span class="stock">In Stock</span></h2>
+                <span class="product-price"><span class="old-price"></span> <%= productDetails.price %>₹</span>
+                <p>
+                    <%= productDetails.description %>
+                </p>
+                <div class="product-bottom-action">
+                    <div class="cart-edit">
+                       
+                    </div>
+
+
+
+                    <% if (typeof(user) == "undefined" || !user ) { %>
+                        <a onclick="pleaselogin()" class="addto-cart-btn action-item"><i class="rt-basket-shopping"></i> Add To
+                            Cart</a>
+    
+    
+                        <a onclick="pleaselogin()" class="wishlist-btn action-item"><i class="fa fa-heart"></i></a>
+
+                    <% } else { %>
+                            <a onclick="addCArt('<%= productDetails._id %>')" class="addto-cart-btn action-item"><i class="rt-basket-shopping"></i> Add To
+                                Cart</a>
+        
+        
+                            <a onclick="addWishlist('<%= productDetails._id %>')" class="wishlist-btn action-item"><i class="fa fa-heart"></i></a>
+
+                     <% } %>
+                    
+
+
+
+
+
+
+
+
+
+
+                </div>
+                
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+function pleaselogin() {
+    Swal.fire("BigMart", "Please Login your Account", "question");
+  }
+
+  function addCArt(id) {
+    $.ajax({
+      url:`/addCart?id=${id}`,
+      method:"get",
+      success:(response)=>{
+        if (response.status === "success") {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Product added to Cart",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Product already in your Cartlist!",
+          });
+        }    
+
+      }
+    })
+  }
+
+  function addWishlist(id) {
+    $.ajax({
+      url: `/addWishlist?id=${id}`,
+      method: "get",
+      success: (response) => {
+        if (response.status === "success") {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Product added to Wishlist",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Product already in your Wishlist!",
+          });
+        }
+      },
+    });
+  }
+
+
+
+</script>
+
+
+
+
+
+<%- include('./layout/footer'); -%>

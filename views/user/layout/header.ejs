@@ -1,87 +1,485 @@
-<header>   
-  	<div class="wrap">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 d-flex align-items-center">
-					</div>
-					<div class="col-md-6 d-flex justify-content-md-end">
-						<div class="social-media mr-4">
-		        </div>
-				<% if (typeof(user) == "undefined" || !user ) { %>
-					<div class="reg">
-						<p class="mb-0"><a href="/usersignup" class="mr-2">Sign Up</a> <a href="userlogin">Log In</a></p>
-					</div>
-					
-					<% } else { %>
-						
-						<div class="reg">
-							<p class="mb-0"><a href="#" class="mr-2"><%= user.fullname %></a><a href="/logout">Log Out</a></p>
-						</div>
-
-					<% } %> 
 
 
-					</div>
-				</div>
-			</div>
-		</div>  
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-			<a class="navbar-brand" href="#">
-                <img src="https://www.retailcore.in/wp-content/uploads/2019/10/bigmart-150x150.png" />
-            </a>
-	      <div class="order-lg-last btn-group">
-          <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          	<span class="flaticon-shopping-bag"></span>
-          	<div class="d-flex justify-content-center align-items-center"><small>3</small></div>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right">
-				    <div class="dropdown-item d-flex align-items-start" href="#">
-				    	<div class="img" style="background-image: url(images/prod-1.jpg);"></div>
-				    	<div class="text pl-3">
-				    		<h4>Bacardi 151</h4>
-				    		<p class="mb-0"><a href="#" class="price">$25.99</a><span class="quantity ml-3">Quantity: 01</span></p>
-				    	</div>
-				    </div>
-				    <div class="dropdown-item d-flex align-items-start" href="#">
-				    	<div class="img" style="background-image: url(images/prod-2.jpg);"></div>
-				    	<div class="text pl-3">
-				    		<h4>Jim Beam Kentucky Straight</h4>
-				    		<p class="mb-0"><a href="#" class="price">$30.89</a><span class="quantity ml-3">Quantity: 02</span></p>
-				    	</div>
-				    </div>
-				    <div class="dropdown-item d-flex align-items-start" href="#">
-				    	<div class="img" style="background-image: url(images/prod-3.jpg);"></div>
-				    	<div class="text pl-3">
-				    		<h4>Citadelle</h4>
-				    		<p class="mb-0"><a href="#" class="price">$22.50</a><span class="quantity ml-3">Quantity: 01</span></p>
-				    	</div>
-				    </div>
-				    <a class="dropdown-item text-center btn-link d-block w-100" href="cart.html">
-				    	View All
-				    	<span class="ion-ios-arrow-round-forward"></span>
-				    </a>
-				  </div>
+<div id="weiboo-load">
+    <div class="preloader-new">
+        <svg class="cart_preloader" role="img" aria-label="Shopping cart_preloader line animation"
+            viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                    <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                    <circle cx="43" cy="111" r="13" />
+                    <circle cx="102" cy="111" r="13" />
+                </g>
+                <g class="cart__lines" stroke="currentColor">
+                    <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80"
+                        stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                    <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                        <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68"
+                            stroke-dashoffset="81.68" />
+                    </g>
+                    <g class="cart__wheel2" transform="rotate(90,102,111)">
+                        <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68"
+                            stroke-dashoffset="81.68" />
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </div>
+</div>
+<!--================= Preloader End Here =================-->
+
+
+
+<!--================= Header Section Start Here =================-->
+<header id="rtsHeader">
+    <div class="header-topbar header-topbar1">
+        <div class="container">
+            <div class="header-top-area">
+                <div class="slider-div">
+                    <div class="swiper rts-topSlide1">
+                        <div class="swiper-wrapper">
+                            
+                            <div class="swiper-slide">
+                                <h3 class="welcome-text"> Welcome To BigMart</h3>
+                            </div>
+
+
+
+
+
+
+                            <% if (typeof(user) == "undefined" || !user ) { %>
+                                <div class="swiper-slide">
+                                    <h3 class="welcome-text">Please Login Your Account</h3>
+                                </div>
+    
+                                
+                                <% } else { %>
+
+                                    <div class="swiper-slide">
+                                        <h3 class="welcome-text">Hai  <%= user.fullname %></h3>
+                                    </div>
+                                    
+            
+                                <% } %> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+
+
+                            
+                        </div>
+                        <div class="slider-navigation2">
+                            <div class="swiper-button-prev slider-btn prev"><i
+                                    class="rt rt-arrow-left-long"></i></div>
+                            <div class="swiper-button-next slider-btn next"><i
+                                    class="rt rt-arrow-right-long"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="/" style="color: green; font-weight: bold;" class="nav-link">Home</a></li>
-	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" style="color: green; font-weight: bold;" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="product.html">Products</a>
-                <a class="dropdown-item" href="product-single.html">Single Product</a>
-                <a class="dropdown-item" href="cart.html">Cart</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>
-              </div>
-            </li>
-	          <li class="nav-item"><a href="" style="color: green; font-weight: bold;" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="" style="color: green; font-weight: bold;" class="nav-link">Contact</a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-</header>
+    </div>
+    <div class="header-topbar-menu-area">
+        <div class="container">
+            <div class="menu-area1">
+                <div class="menu-item">
+                    <nav class="nav navbar">
+                        <div class="navbar-menu">
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">My Account</a></li>
+                                <li><a href="#">Whishlist</a></li>
+                                <li><a href="#">Order Tracking</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div class="menu-area-right-side">
+                    <div class="contact">
+                            
+                        <% if (typeof(user) == "undefined" || !user ) { %>
+                            <strong>
+                                <a href="/userlogin">Login</a>
+                                </strong>
+                                &nbsp
+                                <strong>
+                                <a href="/usersignup">Sign Up</a>
+                                </strong>
+                            
+                            <% } else { %>
+                                
+                                <div class="reg">
+                                    <p class="mb-0"><a href="#" class="mr-2"><a href="/logout">Log Out</a></p>
+                                </div>
+        
+                            <% } %> 
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar-sticky">
+        <div class="container">
+            <div class="navbar-part navbar-part1">
+                <div class="navbar-inner">
+                    <div class="left-side">
+                        <div class="hamburger-1">
+                            <a href="#" class="nav-menu-link">
+                                <span class="dot1"></span>
+                                <span class="dot2"></span>
+                                <span class="dot3"></span>
+                                <span class="dot4"></span>
+                                <span class="dot5"></span>
+                                <span class="dot6"></span>
+                                <span class="dot7"></span>
+                                <span class="dot8"></span>
+                                <span class="dot9"></span>
+                            </a>
+                        </div>
+                        <a href="index.html" class="logo"><img src="assets/images/bigmart-logo.png" alt="weiboo-logo"></a>
+                    </div>
+                    <div class="rts-menu">
+                        <nav class="menus menu-toggle">
+                            <ul class="nav__menu">
+                                <li class="has-dropdown"><a class="menu-item active1" href="/">Home <i
+                                            class="rt-plus"></i></a>
+                                    
+                                </li>
+
+
+
+                                <li class="has-dropdown"><a class="menu-item" href="/shopPage">Shop <i
+                                            class="rt-plus"></i></a>
+                                    
+                                </li>
+                                
+
+
+
+
+                                <% if (typeof(user) == "undefined" || !user ) { %>
+                                    <li></li>
+        
+                                    
+                                    <% } else { %>
+    
+                                        <li class="has-dropdown"><a class="menu-item" href="#">My Pages <i
+                                            class="rt-plus"></i></a>
+                                            <ul class="dropdown-ul">
+                                               <li class="dropdown-li"><a class="dropdown-link" href="#">Wishlist</a></li>
+                                               <li class="dropdown-li"><a class="dropdown-link"
+                                                href="#">Cart</a></li>
+                                               <li class="dropdown-li"><a class="dropdown-link"
+                                                href="#">My Account</a></li>
+                                            </ul>
+                                        </li>
+                                        
+                
+                                    <% } %> 
+
+                               
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="responsive-hamburger">
+                        <div class="hamburger-1">
+                            <a href="#" class="nav-menu-link">
+                                <span class="dot1"></span>
+                                <span class="dot2"></span>
+                                <span class="dot3"></span>
+                                <span class="dot4"></span>
+                                <span class="dot5"></span>
+                                <span class="dot6"></span>
+                                <span class="dot7"></span>
+                                <span class="dot8"></span>
+                                <span class="dot9"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="header-action-items header-action-items1">
+                        <div class="search-part">
+                            <div class="search-icon action-item icon"><i class="fa fa-search"></i></div>
+                            <div class="search-input-area">
+                                <div class="container">
+                                    <div class="search-input-inner">
+                                        <div class="input-div">
+                                            <input id="searchInput1" class="search-input" type="text"
+                                                placeholder="Search">
+                                        </div>
+                                        <div class="search-close-icon"><i class="rt-xmark"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart action-item">
+                            <div class="cart-nav">
+                                <div class="cart-icon icon">
+                            <a onclick="getWishlist()" class="account"><i class="far fa-heart"></i></a>
+                            
+
+
+
+
+                            <% if (typeof(user) == "undefined" || !user ) { %>
+                                <span class="wishlist-dot icon-dot">0</span>
+    
+                                
+                                <% } else { %>
+
+                                    <span class="wishlist-dot icon-dot"><%= user.wishlist.length %></span>
+                                    
+            
+                                <% } %> 
+
+                            
+                        
+
+
+                        </div>
+                            </div>
+                        </div>
+           
+                        <div class="cart action-item">
+                            <div class="cart-nav">
+                                <div class="cart-icon icon"><a onclick="getCartlist()"><i aria-hidden="true"
+                                            class="fas fa-shopping-basket"></i></a><span
+                                        class="wishlist-dot icon-dot">3</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    
+    <aside class="slide-bar">
+        <div class="offset-sidebar">
+            <a class="hamburger-1 mobile-hamburger-1 ml--30" href="#"><span><i class="rt-xmark"></i></span></a>
+        </div>
+        <!-- offset-sidebar start -->
+        <div class="offset-sidebar-main">
+            <div class="offset-widget mb-40">
+                <div class="info-widget">
+                    <img src="assets/images/logo1.svg" alt="">
+                    <p class="mb-30">
+                        We must explain to you how all seds this mistakens idea denouncing pleasures and praising account.
+                    </p>
+                </div>
+                <div class="info-widget info-widget2">
+                    <h4 class="offset-title mb-20">Get In Touch </h4>
+                    <ul>
+                        <li class="info phone"><a href="tel:78090790890208806803">780 907 908 90, 208 806 803</a></li>
+                        <li class="info email"><a href="email:info@webmail.com">info@webmail.com</a></li>
+                        <li class="info web"><a href="www.webexample.com">www.webexample.com</a></li>
+                        <li class="info location">13/A, New Pro State, NYC</li>
+                    </ul>
+                    <div class="offset-social-link">
+                        <h4 class="offset-title mb-20">Follow Us </h4>
+                        <ul class="social-icon">
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                            <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- offset-sidebar end -->
+        <!-- side-mobile-menu start -->
+        <nav class="side-mobile-menu side-mobile-menu1">
+            <ul id="mobile-menu-active">
+                <li class="has-dropdown firstlvl">
+                    <a class="mm-link" href="index.html">Home <i class="rt-angle-down"></i></a>
+                    <ul class="sub-menu">
+                        <li><a href="index.html">Main Home</a></li>
+                        <li><a href="index-two.html">Fashion Home</a></li>
+                        <li><a href="index-three.html">Furniture Home</a></li>
+                        <li><a href="index-four.html">Decor Home</a></li>
+                        <li><a href="index-five.html">Electronics Home</a></li>
+                        <li><a href="index-six.html">Grocery Home</a></li>
+                        <li><a href="index-seven.html">Footwear Home</a></li>
+                        <li><a href="index-seven.html">Gaming Home</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown firstlvl">
+                    <a class="mm-link" href="shop.html">Shop <i class="rt-angle-down"></i></a>
+                    <ul class="sub-menu mega-dropdown-mobile">
+                        <li class="mega-dropdown-li">
+                            <ul class="mega-dropdown-ul mm-show">
+                                <li class="dropdown-li"><a class="dropdown-link" href="shop.html">Shop</a>
+                                </li>
+                                <li class="dropdown-li"><a class="dropdown-link" href="slidebar-left.html">Left Sidebar
+                                        Shop</a>
+                                </li>
+                                <li class="dropdown-li"><a class="dropdown-link" href="slidebar-right.html">Right Sidebar
+                                        Shop</a>
+                                </li>
+                                <li class="dropdown-li"><a class="dropdown-link" href="full-width-shop.html">Full
+                                        Width Shop</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="mega-dropdown-li">
+                            <ul class="mega-dropdown-ul mm-show">
+                                <li class="dropdown-li"><a class="dropdown-link" href="product-details.html">Single Product
+                                        Layout
+                                        One</a>
+                                </li>
+                                <li class="dropdown-li"><a class="dropdown-link"
+                                        href="product-details2.html">Single Product Layout
+                                        Two</a>
+                                </li>
+                                <li class="dropdown-li"><a class="dropdown-link" href="variable-products.html">Variable Product</a>
+                                </li>
+                                <li class="dropdown-li"><a class="dropdown-link" href="grouped-products.html">Grouped Product</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="mega-dropdown-li">
+                            <ul class="mega-dropdown-ul mm-show">
+                                <li class="dropdown-li"><a class="dropdown-link" href="cart.html">Cart
+                                        </a>
+                                </li>
+                                <li class="dropdown-li"><a class="dropdown-link"
+                                        href="checkout.html">Checkout</a>
+                                </li>
+                                <li class="dropdown-li"><a class="dropdown-link"
+                                        href="account.html">My
+                                        Account</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-dropdown firstlvl">
+                    <a class="mm-link" href="index.html">Pages <i class="rt-angle-down"></i></a>
+                    <ul class="sub-menu">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="faq.html">FAQ's</a></li>
+                        <li><a href="error.html">Error 404</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown firstlvl">
+                    <a class="mm-link" href="news.html">Blog <i class="rt-angle-down"></i></a>
+                    <ul class="sub-menu">
+                        <li><a href="news.html">Blog</a></li>
+                        <li><a href="news-grid.html">Blog Grid</a></li>
+                        <li><a href="news-details.html">Blog Details</a></li>
+                    </ul>
+                </li>
+                <li><a class="mm-link" href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-action-items header-action-items1 header-action-items-side">
+            <div class="search-part">
+                <div class="search-icon action-item icon"><i class="rt-search"></i></div>
+                <div class="search-input-area">
+                    <div class="container">
+                        <div class="search-input-inner">
+                            <select id="custom-select">
+                                <option value="hide">All Catagory</option>
+                                <option value="all">All</option>
+                                <option value="men">Men</option>
+                                <option value="women">Women</option>
+                                <option value="shoes">Shoes</option>
+                                <option value="shoes">Glasses</option>
+                                <option value="shoes">Bags</option>
+                                <option value="shoes">Assesories</option>
+                            </select>
+                            <div class="input-div">
+                                <div class="search-input-icon"><i class="rt-search mr--10"></i></div>
+                                <input class="search-input" type="text" placeholder="Search by keyword or #">
+                            </div>
+                            <div class="search-close-icon"><i class="rt-xmark"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cart action-item">
+                <div class="cart-nav">
+                    <div class="cart-icon icon"><i class="rt-cart"></i><span class="wishlist-dot icon-dot">3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="wishlist action-item">
+                <div class="favourite-icon icon"><i class="rt-heart"></i><span class="cart-dot icon-dot">0</span>
+                </div>
+            </div>
+            <a href="login.html" class="account"><i class="rt-user-2"></i></a>
+        </div>
+        <!-- side-mobile-menu end -->
+    </aside>
+    </header>
+
+    
+    <script>
+
+
+function getCartlist() {
+    $.ajax({
+        url:`/cartlist`,
+        method:"get",
+        success:(response)=>{
+            if (response.status==='success') {
+              event.preventDefault()
+              Swal.fire(
+                     'BigMart',
+                     'Please Login Your account',
+                     'question'
+              )
+            }
+            else{
+    
+              location.href="/cartlist"
+            }
+        }
+    })
+}
+
+
+function getWishlist() {
+    $.ajax({
+      url: `/wishlist`,
+          method: "get",
+          success: (response)=>{
+            if (response.status==='success') {
+              event.preventDefault()
+              Swal.fire(
+                     'BigMart',
+                     'Please Login Your account',
+                     'question'
+              )
+            }
+            else{
+    
+              location.href="/wishlist"
+            }
+          }
+    })
+}
+
+    
+    </script>

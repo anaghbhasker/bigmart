@@ -44,15 +44,18 @@
                         <label for="recipient-name" class="col-form-label"
                           >Category Name:</label
                         >
+                        <div id="errorCatename"></div>
                         <input
                           type="text"
                           class="form-control"
                           name="categoryname"
+                          id="categoryname"
                         />
                       </div>
                       <div class="mb-3">
                         <label for="formFile" class="form-label">Category image</label>
-                        <input class="form-control" type="file" id="formFile" name="categoryimage">
+                        <div id="errorCateimg"></div>
+                        <input class="form-control" type="file" id="categoryImage" name="categoryimage">
                       </div>
                       <div class="modal-footer">
                         <button
@@ -62,7 +65,7 @@
                         >
                           Close
                         </button>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" id="cateButton" class="btn btn-primary">
                           Add
                         </button>
                       </div>
@@ -79,7 +82,7 @@
                     <th></th>
                     <th>Category image</th>
                     <th>Category name</th>
-                    <th>Count</th>
+                    <th>Product count</th>
                     <th>Products</th>
                     <th></th>
                   </tr>
@@ -107,7 +110,7 @@
                     </td>
 
                     <td>
-                      <a href="/admin/deleteCategory?id=<%= category._id %>">
+                      <a onclick="categoryDelete('<%= category._id %>')">
                         <span
                           class="material-symbols-outlined text-danger ml-4"
                         >
@@ -128,4 +131,11 @@
   </div>
 </div>
 
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+
+
+
+<%-include('./layout/end'); -%>
 <%-include('./layout/footer'); -%>
