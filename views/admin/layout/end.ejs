@@ -1,4 +1,6 @@
+
 <script>
+
   function adminLogin() {
     $(".error").css("display","none");
     let adminEmail = document.getElementById("email").value;
@@ -26,4 +28,136 @@
         adminLogin()
     }
   })
+
+
+
+function categoryDelete(id){
+   
+ Swal.fire({
+ title: 'Are you sure?',
+ text: "Are you sure?",
+ icon: 'warning',
+ showCancelButton: true,
+ confirmButtonColor: '#3085d6',
+ cancelButtonColor: '#d33',
+ confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+ if (result.isConfirmed) {
+   location.href = `/admin/deleteCategory?id=${id}`
+   Swal.fire(
+     'Deleted!',
+     'Your file has been deleted.',
+     'success'
+   ).then((result)=>{
+      location.reload()
+     })
+ }
+})
+}
+
+
+
+
+
+
+function bannerDelete(id){
+   
+   Swal.fire({
+   title: 'Are you sure?',
+   text: "Are you sure?",
+   icon: 'warning',
+   showCancelButton: true,
+   confirmButtonColor: '#3085d6',
+   cancelButtonColor: '#d33',
+   confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+   if (result.isConfirmed) {
+     location.href = `/admin/deleteBanner?id=${id}`
+     Swal.fire(
+       'Deleted!',
+       'Your file has been deleted.',
+       'success'
+     ).then((result)=>{
+      location.reload()
+     })
+   }
+  })
+  }
+  
+
+
+
+
+
+
+
+$("#cateButton").click(function () {
+  console.log("vannu");
+  $(".errorMessages").hide();
+  var hasError = false;  
+  var catenameVal = $("#categoryname").val();
+  var cateimgVal = $("#categoryImage").val();        
+
+  if (catenameVal == "") {
+    $("#errorCatename").after(
+      '<p class="errorMessages" >Please enter your category name.</p>'
+    );
+    hasError = true;
+  }
+  if (cateimgVal == "") {
+    $("#errorCateimg").after(
+      '<p class="errorMessages">Insert your category image.</p>'
+    );
+    hasError = true;
+  } 
+  if (hasError == true) {
+    return false;
+  }
+});
+
+bannerdescription
+
+$("#bannerBtn").click(function () {
+  $(".errorMessages").hide();
+  var hasError = false;  
+  var bannedes=$("#bannerdescription").val();
+  var bannenameVal = $("#bannername").val();
+  var banneimgVal = $("#bannerimage").val();        
+
+  if (bannenameVal == "") {
+    $("#errorBanename").after(
+      '<p class="errorMessages" >Please enter your banner tittle.</p>'
+    );
+    hasError = true;
+  }
+  if (banneimgVal == "") {
+    $("#errorBaneimg").after(
+      '<p class="errorMessages">Insert your banner image.</p>'
+    );
+    hasError = true;
+  } 
+  if (bannedes == "") {
+    $("#errorBandes").after(
+      '<p class="errorMessages">Please enter your banner description</p>'
+    );
+    hasError = true;
+  } 
+  if (hasError == true) {
+    return false;
+  }
+});
+
+
+
 </script>
+
+
+<style>
+  .errorMessages{
+    color: red;
+    font-size: small;
+    font-family: 'Poppins';
+  }
+
+</style>
+

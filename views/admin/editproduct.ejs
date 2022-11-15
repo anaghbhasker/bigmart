@@ -1,0 +1,155 @@
+<%- include('./layout/main'); -%> <%- include('./layout/header'); -%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Add Product</h4>
+                <form class="forms-sample" action="/admin/editpostProducts?id=<%= productDetails._id %>" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="exampleInputName1">Name</label>
+                    <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="productname" value="<%= productDetails.name %>">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail3">Descripition</label>
+                    <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Descripition" name="productdescripition" value="<%= productDetails.description %>">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword4">Brand</label>
+                    <input type="text" class="form-control" id="exampleInputPassword4" placeholder="Brand" name="productbrand" value="<%= productDetails.brand %>">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleSelectGender">Category</label>
+                    <select class="form-control" id="exampleSelectGender" name="productcategory" value="<%= productDetails.category_name %>">
+
+                      <% categoryDetails.forEach(category => { %>
+
+                        <option value="<%= category._id %>"><%= category.category_name %></option>
+                        
+                        <% }) %>
+
+                    </select>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Price</h4>
+                    <div class="form-group row">
+                      <div class="col">
+                        <label>Original Price</label>
+                        <div id="the-basics">
+                          <input class="typeahead" type="number" placeholder="Original Price" name="productprice" value="<%= productDetails.price %>">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label>Discount</label>
+                        <div id="bloodhound">
+                          <input class="typeahead" type="number" placeholder="Discount" name="productdiscount" value="<%= productDetails.discount %>">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Inventory</h4>
+                    
+                    <div class="form-group row">
+                      <div class="col">
+                        <label>Stock</label>
+                        <div id="the-basics">
+                          <input class="typeahead" type="number" placeholder="Stock" name="productstock" value="<%= productDetails.stock %>">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label>Tages</label>
+                        <!-- <div id="bloodhound">
+                          <select class="typeahead" id="month" value="<%= productDetails.tags %>" name="month" multiple >
+                            <% categoryDetails.forEach(category => { %>
+
+                              <option value="<%= category._id %>"><%= category.category_name %></option>
+                            
+                              <% }) %>               
+                          </select>
+                        </div> -->
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body text-center" >
+                <% for( let i = 0; i < productDetails.product_image.length; i++ ) { %>
+                <img src="data:<%= productDetails.product_image[i].contentType %>;base64,<%= productDetails.product_image[i].imageBase64 %>" alt="image" style="width: 200px; height: 200px;" >
+                <% } %>
+              </div>
+              </div>
+              </div>
+
+        
+         <div class="col-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+                     <div class="form-group">
+                    <label>Replace Image</label>
+                    <div class="mb-3">  
+                    <input class="form-control" type="file" id="formFile" name="images" multiple>
+                    </div>
+                    </div>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <button class="btn btn-dark">Cancel</button>
+            </div>
+          </div>
+        </div> 
+    </form> 
+    
+    
+
+    
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  $(document).ready(function() {
+      $('#month').select2({
+        tags: true,
+        tokenSeparators: [',', ' ']
+      });
+});
+</script>
+<%- include('./layout/footer'); -%>
