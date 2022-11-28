@@ -1,11 +1,17 @@
 const User = require("../model/userSchema");
 const Category = require("../model/categorySchema");
 const Products = require("../model/productSchema");
+const Cart = require("../model/cartSchema");
 
 ///////////////////////////////////////////////////////////
 
 module.exports.shopPage = async (req, res) => {
   try {
+    const userKO = req.session.userKO;
+    const cart = await Cart.findOne({ user: userKO })
+      .populate("user")
+      .populate("products");
+    res.locals.cartDetails = cart;
     res.locals.user = req.session.user;
     let categorys = await Category.find();
     res.locals.categoryDetails = categorys;
@@ -19,10 +25,15 @@ module.exports.shopPage = async (req, res) => {
 
 module.exports.wishList = async (req, res) => {
   try {
+    const userKO = req.session.userKO;
+    const cart = await Cart.findOne({ user: userKO })
+      .populate("user")
+      .populate("products");
+    res.locals.cartDetails = cart;
     res.locals.user = req.session.user;
-    const userId=res.locals.user._id
-    const result=await User.findById(userId).populate('wishlist')
-    res.locals.productsDetails=result
+    const userId = res.locals.user._id;
+    const result = await User.findById(userId).populate("wishlist");
+    res.locals.productsDetails = result;
     res.render("user/wishlist");
   } catch (error) {
     console.log(error);
@@ -56,6 +67,9 @@ module.exports.productDetails = async (req, res) => {
 
 module.exports.productDetail = async (req, res) => {
   try {
+    const userKO=req.session.userKO
+    const cart = await Cart.findOne({user:userKO}).populate('user').populate('products')
+    res.locals.cartDetails=cart
     res.locals.user = req.session.user;
     const productId = req.query.id;
     const productDetail = await Products.findById(productId).populate(
@@ -94,8 +108,8 @@ module.exports.removeWishlist = async (req, res) => {
     if (user) {
       const userId = req.session.user._id;
       await User.findByIdAndUpdate(userId, { $pull: { wishlist: productId } });
-      
-      res.redirect('/wishlist')
+
+      res.redirect("/wishlist");
     } else {
       console.log("Please Login Your Account");
     }

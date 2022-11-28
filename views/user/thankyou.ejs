@@ -1,0 +1,258 @@
+<%- include('./layout/main'); -%><%- include('./layout/header'); -%>
+
+
+
+
+
+
+
+<div class="thanks-area">
+    <div class="container">
+        <div class="section-inner">
+            <div class="section-icon">
+                <i class="fal fa-check"></i>
+            </div>
+            <div class="section-title">
+                <h2 class="sub-title">Thanks For your Order</h2>
+                <h3 class="sect-title">Sorry, we couldn't find the page you where looking for. We suggest that <br> you return to homepage.</h3>
+            </div>
+            <div class="section-button">
+                <a class="btn-1" href="/"><i class="fal fa-long-arrow-left"></i> Go To Homepage</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<% if (orderCOUNT.length==1) { %>
+
+
+    <% coupenDetails.forEach(coupen => { %>
+       
+
+    <div class="container">
+        <div class="kichu">
+          <div class="coupon">
+            <i class="fas fa-cut"></i>
+            <div class="coupon-head">
+              BigMart Special
+            </div>
+            <div style="color: red;">
+              <%= coupen.discount %> % OFF
+            </div>
+            <div class="coupon-small-print">
+              Not vaild with other coupons or discount offers for same service.
+            </div>
+            <div class="coupon-expiration">
+              Valid Till:<%= moment(coupen.enddate).format('DD-MM-YYYY');  %>
+            </div>
+            <di class="coupon-row">
+              <span id="cpnCode"><%= coupen.code %></span>
+              <span id="cpnBtn">COPY</span>
+          </di>
+          <div class="coupon-expiration">
+            Don't share coupen code!!
+          </div>
+          </div>                  
+          </div>
+        
+    </div>
+
+        <% }) %>
+
+
+
+
+        <div class="thanks-area">
+            <div class="container">
+                <div class="section-inner">
+                    
+                    <div class="section-title">
+                        <h2 style="color: green;" class="sub-title">Congratulations <%= user.fullname %>!!</h2>
+                        <h3 style="color: green;" class="sect-title">You unlocked an exclusive coupon code!!We suggest that <br> you return to Accountpage.</h3>
+                    </div>
+                    <div class="section-button">
+                        <a class="btn-1" href="/"><i class="fal fa-long-arrow-left"></i> Go To Accountpage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+ 
+<% } %>
+
+
+
+
+<div class="rts-wishlist-section section-gap">
+    <div class="container">
+        <table class="table table-bordered table-hover">
+            <tbody> 
+                
+
+                <% for( let i = 0; i < orderDetails.products.length; i++ ) { %>
+                
+             
+                
+                <tr>    
+                    <td class="first-child"><a href=""><img style="height: 100px;"
+                                src="data:<%= orderDetails.products[i].item.product_image[0].contentType %>;base64,<%= orderDetails.products[i].item.product_image[0].imageBase64 %>" alt=""></a>
+                        <a href="" class="pretitle"><%= orderDetails.products[i].item.name %></a>
+                    </td>
+                    <td><span class="product-price"><%= orderDetails.products[i].item.price %>₹</span></td>
+                    <td class="stock">x<%= orderDetails.products[i].quantity %></td>
+                    <td class="last-td"><%= orderDetails.address.name %></td>
+                </tr>
+
+
+                <% } %>
+
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+    var cpnBtn = document.getElementById("cpnBtn");
+              var cpnCode = document.getElementById("cpnCode");
+  
+              cpnBtn.onclick = function(){
+                  navigator.clipboard.writeText(cpnCode.innerHTML);
+                  cpnBtn.innerHTML ="COPIED";
+                  setTimeout(function(){
+                      cpnBtn.innerHTML="COPY";
+                  }, 3000);
+              }
+    
+    
+    </script>
+  
+    <style>
+      
+  
+      .coupon-row{
+      display: flex;
+      align-items: center;
+      margin: 25px auto;
+      width: fit-content;
+  
+  }
+  #cpnCode{
+      border: 1px dashed rgb(169, 7, 7);
+      padding: 10px 20px;
+      border-right: 0;
+  
+  }
+  #cpnBtn{
+      border: 1px solid rgb(11, 1, 1);
+      background: rgb(213, 25, 25);
+      padding: 10px 20px;
+      color: #7158fe;
+      cursor: pointer;
+  }
+      
+      
+      </style>
+  
+  <style>
+    
+    .kichu {
+    padding: 50px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: whitesmoke;
+    
+  }
+  
+  
+  /*------------------*/
+  
+  
+  .coupon {
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    position: relative;
+    z-index: 3;
+  }
+  .coupon:before {
+    content: '';
+    display: block;
+    width: 320px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: -1;
+    background: white;
+    transform: scale(1.08);
+  }
+  .coupon:after {
+    content: '';
+    display: block;
+    width: 320px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: -1;
+    border: 3px dashed #222;
+  }
+  .coupon-head {
+    font-weight: 600;
+    font-size: 2em;
+  }
+  .coupon-price {
+    font-size: 4em;
+    font-weight: 600;
+    color: red;
+  }
+  .coupon-fat-text {
+    font-weight: 600;
+    font-size: 1.3em;
+  }
+  .coupon-small-print {
+    font-style: italic;
+    margin: 10px 0;
+  }
+  .coupon-expiration {
+    font-weight: 600;
+  }
+    
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include('./layout/footer'); -%>

@@ -5,11 +5,16 @@ const Products = require("../model/productSchema");
 const Banners = require("../model/bannerSchema");
 const fs = require("fs");
 const twilio = require("../OTPVERIFY/twilio");
+const Cart = require("../model/cartSchema");
 let phoneNum;
 let userOTP;
 ///////////////////////////////////////////////////////////
 
 module.exports.homepage = async (req, res) => {
+ 
+  const userKO=req.session.userKO
+  const cart = await Cart.findOne({user:userKO}).populate('user').populate('products')
+  res.locals.cartDetails=cart
   res.locals.user = req.session.user
   let categorys = await Category.find();
   res.locals.categoryDetails = categorys;
@@ -99,6 +104,7 @@ module.exports.userpostLogin = async (req, res) => {
           if (userEmail.otpVerify === true) {
             req.session.userLogged = true;
             req.session.user = userEmail;
+            req.session.userKO=userEmail._id
             res.redirect("/");
           } else {
             twilio.otpSend(phoneNum);
@@ -120,7 +126,8 @@ module.exports.userpostLogin = async (req, res) => {
 
 module.exports.userLogout = (req, res) => {
   req.session.destroy();
-  res.redirect("/");
+  res.render("user/userlogin");
 };
 
 ///////////////////////////////////////////////////////////
+

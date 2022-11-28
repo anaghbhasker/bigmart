@@ -29,6 +29,40 @@ const userSchema = new schema(
         required: true,
       },
     ],
+    address: [
+      {
+        name:{
+          type: String
+        },
+        house:{
+          type: String
+        },
+        post:{
+          type: String
+        },
+        city:{
+          type: String
+        },
+        district:{
+          type: String
+        },
+        state:{
+          type: String
+        },
+        zip:{
+          type:Number
+        },
+        country:{
+          type: String
+        },
+        phone:{
+          type: String
+        },
+        email:{
+          type: String
+        }
+      }
+    ]  
   },
   {
     timestamps: true,

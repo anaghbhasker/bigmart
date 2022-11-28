@@ -32,8 +32,9 @@ app.set("views", "views");
 app.set("view engine", "ejs");
 app.use(cookieParser());
 
-app.use("/", userRouter);
 app.use("/admin", adminRouter);
+app.use("/", userRouter);
+
 
 app.listen(port, () => {
   console.log(`server running at http://localhost:${port}`);

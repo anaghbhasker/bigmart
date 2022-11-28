@@ -1,5 +1,7 @@
-<%- include('./layout/main'); -%> <%- include('./layout/popup'); -%> <%-
-include('./layout/header'); -%>
+<%- include('./layout/main'); -%> 
+<%- include('./layout/popup'); -%> 
+
+<%- include('./layout/header'); -%>
 
 
 
@@ -64,8 +66,8 @@ include('./layout/header'); -%>
   <div class="container">
     <div class="rts-offer-inner">
       <p class="description">
-        Super discount for your 100$ purchase. Use this code
-        <a href="">OFFER100</a>
+        Super discount for your 1000₹ purchase. Use this code
+        <a href="#">OFFER1000</a>
       </p>
     </div>
   </div>
@@ -308,12 +310,17 @@ include('./layout/header'); -%>
       method:"get",
       success:(response)=>{
         if (response.status === "success") {
+          let count=$('#cartIncre').html()
+          count=parseInt(count)+1
+          $("#cartIncre").html(count)
           Swal.fire({
             position: "top-center",
             icon: "success",
             title: "Product added to Cart",
             showConfirmButton: false,
             timer: 2000,
+          }).then((result)=>{
+            location.reload()
           });
         }else {
           Swal.fire({

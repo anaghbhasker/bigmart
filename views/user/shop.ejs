@@ -129,6 +129,9 @@
       method:"get",
       success:(response)=>{
         if (response.status === "success") {
+          let count=$('#cartIncre').html()
+          count=parseInt(count)+1
+          $("#cartIncre").html(count)
           Swal.fire({
             position: "top-center",
             icon: "success",

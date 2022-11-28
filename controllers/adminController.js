@@ -3,8 +3,12 @@ const User = require("../model/userSchema");
 const Category = require("../model/categorySchema");
 const Products = require("../model/productSchema");
 const Banners = require("../model/bannerSchema");
+const Order = require("../model/orderSchema")
+const Coupen = require("../model/coupenSchema")
 const multer = require("multer");
 const fs = require("fs");
+const moment = require("moment");
+const { default: mongoose } = require("mongoose");
 const { Console } = require("console");
 
 module.exports.indexpage = (req, res) => {
@@ -51,14 +55,19 @@ module.exports.category = async (req, res) => {
     console.log(error);
   }
 };
-module.exports.orders = (req, res) => {
-  res.render("admin/orders");
+module.exports.orders = async(req, res) => {
+  const orders=await Order.find().populate('user')
+  res.locals.orderDetails=orders
+  res.render("admin/orders",{ moment: moment });
 };
 module.exports.salesreport = (req, res) => {
   res.render("admin/salesreport");
 };
-module.exports.coupens = (req, res) => {
-  res.render("admin/coupens");
+module.exports.coupens = async(req, res) => {
+  const today= new Date()
+  const coupen= await Coupen.find()
+  res.locals.coupenDetails=coupen
+  res.render("admin/coupens",{ moment,today });
 };
 module.exports.banners = async (req, res) => {
   let banners = await Banners.find();
@@ -297,3 +306,91 @@ module.exports.deleteBanner = async (req, res) => {
   const bannerId = req.query.id;
   await Banners.findByIdAndDelete(bannerId);
 };
+
+
+///////////////////////////////////////////////////////////
+
+module.exports.orderPlaced=async(req,res)=>{
+  try {
+    const orderId=req.query.id
+    await Order.findByIdAndUpdate(orderId,{$set:{status:"placed"},})
+    res.redirect('/admin/orders')
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+module.exports.orderShipping=async(req,res)=>{
+  try {
+    const orderId=req.query.id
+    await Order.findByIdAndUpdate(orderId,{$set:{status:"shipping"},})
+    res.redirect('/admin/orders')
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+module.exports.orderDelivered=async(req,res)=>{
+  try {
+    const orderId=req.query.id
+    await Order.findByIdAndUpdate(orderId,{$set:{status:"delivered"},})
+    res.redirect('/admin/orders')
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+module.exports.orderCancel=async(req,res)=>{
+  try {
+    const orderId=req.query.id
+    await Order.findByIdAndUpdate(orderId,{$set:{status:"cancel"},})
+    res.redirect('/admin/orders')
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+///////////////////////////////////////////////////////////
+
+module.exports.addCoupen=async(req,res)=>{
+  try {
+    let coupen=req.body
+    let Obj={
+      code:coupen.code,
+      discount:coupen.discount,
+      minamount:coupen.minamount,
+      maxamount:coupen.maxamount,
+      enddate:coupen.enddate,
+      status:coupen.status
+    }
+    await Coupen.create(Obj)
+    res.redirect('/admin/coupens')
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+module.exports.coupenEnable=async(req,res)=>{
+  try {
+    const coupenId=req.query.id
+    await Coupen.findByIdAndUpdate(coupenId,{$set:{status:"enable"},})
+    res.redirect('/admin/coupens')
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+module.exports.coupenDisable=async(req,res)=>{
+  try {
+    const coupenId=req.query.id
+    await Coupen.findByIdAndUpdate(coupenId,{$set:{status:"disable"},})
+    res.redirect('/admin/coupens')
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+///////////////////////////////////////////////////////////

@@ -42,11 +42,25 @@ router.post('/addProducts',store.array('images',2),adminController.addPOSTroduct
 router.get('/deleteProduct',adminController.deleteProduct)
 router.post('/editpostProducts',store.array('images',2),adminController.editpostProducts)
 
-
 ///////////////////////////////////////////////////////////
 
 router.post('/addBanner',fileupload.upload.single('bannerimage'),adminController.addBanner)
 router.get('/deleteBanner',adminController.deleteBanner)
+
+///////////////////////////////////////////////////////////
+
+router.get('/orderPlaced',adminController.orderPlaced)
+router.get('/orderShipping',adminController.orderShipping)
+router.get('/orderDelivered',adminController.orderDelivered)
+router.get('/orderCancel',adminController.orderCancel)
+
+///////////////////////////////////////////////////////////
+
+router.post('/addCoupen',adminController.addCoupen)
+router.get('/coupenenable',adminController.coupenEnable)
+router.get('/coupendisable',adminController.coupenDisable)
+
+///////////////////////////////////////////////////////////
 
 
 module.exports = router

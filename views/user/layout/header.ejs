@@ -155,7 +155,7 @@
                                 <span class="dot9"></span>
                             </a>
                         </div>
-                        <a href="index.html" class="logo"><img src="assets/images/bigmart-logo.png" alt="weiboo-logo"></a>
+                        <a href="/" class="logo"><img src="assets/images/bigmart-logo.png" alt="weiboo-logo"></a>
                     </div>
                     <div class="rts-menu">
                         <nav class="menus menu-toggle">
@@ -182,18 +182,10 @@
                                     
                                     <% } else { %>
     
-                                        <li class="has-dropdown"><a class="menu-item" href="#">My Pages <i
-                                            class="rt-plus"></i></a>
-                                            <ul class="dropdown-ul">
-                                               <li class="dropdown-li"><a class="dropdown-link" href="#">Wishlist</a></li>
-                                               <li class="dropdown-li"><a class="dropdown-link"
-                                                href="#">Cart</a></li>
-                                               <li class="dropdown-li"><a class="dropdown-link"
-                                                href="#">My Account</a></li>
-                                            </ul>
+                                        <li class="has-dropdown"><a class="menu-item" href="/account">My Account 
+                                            <i class="rt-plus"></i></a>
                                         </li>
-                                        
-                
+                    
                                     <% } %> 
 
                                
@@ -262,8 +254,30 @@
                         <div class="cart action-item">
                             <div class="cart-nav">
                                 <div class="cart-icon icon"><a onclick="getCartlist()"><i aria-hidden="true"
-                                            class="fas fa-shopping-basket"></i></a><span
-                                        class="wishlist-dot icon-dot">3</span></div>
+                                            class="fas fa-shopping-basket"></i> </a>
+                                            
+                                            
+                                            
+                                            <% if (typeof(user) == "undefined" || !user ) { %>
+                                                    
+                                                  <span class="wishlist-dot icon-dot">0</span>
+                                                                                
+                                           <% } else { %>
+                                                    
+                                                 <% if (cartDetails==null) { %>
+                                                    <span class="wishlist-dot icon-dot">0</span>
+                                                  
+                                                 <% } else { %>
+                                        
+                                                     <span id="cartIncre" class="wishlist-dot icon-dot"><%= cartDetails.products.length %></span>
+
+                                                     <% } %>                        
+                                            <% } %> 
+                                        
+                                       
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -439,6 +453,7 @@
 
 
 function getCartlist() {
+    
     $.ajax({
         url:`/cartlist`,
         method:"get",

@@ -79,8 +79,8 @@
                 <td><span class="product-price"><%= productsDetails.wishlist[i].price %>₹</span></td>
                 <td class="stock">In Stock</td>
                 </td>
-                <td class="last-td"><button class="cart-btn"><i class="rt-basket-shopping"></i> Add To
-                        Cart</button></td>
+                <td class="last-td"><a onclick="addCArt('<%= productsDetails.wishlist[i]._id %>')"><button class="cart-btn"><i class="rt-basket-shopping"></i> Add To
+                        Cart</button></a></td>
             </tr>
         </tbody>
     </table>
@@ -98,7 +98,35 @@
 
 
 
+<script>
+    function addCArt(id) {
+    $.ajax({
+      url:`/addCart?id=${id}`,
+      method:"get",
+      success:(response)=>{
+        if (response.status === "success") {
+          let count=$('#cartIncre').html()
+          count=parseInt(count)+1
+          $("#cartIncre").html(count)
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Product added to Cart",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Product already in your Cartlist!",
+          });
+        }    
 
+      }
+    })
+  }
+</script>
 
 
 

@@ -1,0 +1,434 @@
+<%- include('./layout/main'); -%> <%- include('./layout/header'); -%>
+
+<div class="rts-checkout-section">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-xl-8">
+        <div class="coupon-area">
+          <div class="coupon-ask">
+            <span>Have a coupon?</span>
+            <button class="coupon-click">Click here to enter your code</button>
+          </div>
+          <div class="coupon-input-area">
+            <input type="text" placeholder="Enter Coupon Code..." />
+            <button type="submit" class="apply-btn">Apply Coupon</button>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          data-bs-whatever="@getbootstrap">
+          Add Address
+        </button>
+
+        <div class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form id="addADDRESS" class="checkout-form">
+                  <div class="row">
+                    <div class="col-xl-6 col-md-6">
+                      <div class="input-div">
+                        <input
+                          type="text"
+                          placeholder="Name**"
+                          name="name"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6">
+                      <div class="input-div">
+                        <input
+                          type="text"
+                          placeholder="House(H)**"
+                          name="house"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6 col-md-6">
+                      <div class="input-div">
+                        <input
+                          type="text"
+                          placeholder="(PO)Post**"
+                          name="post"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6">
+                      <div class="input-div">
+                        <input
+                          type="text"
+                          placeholder="City**"
+                          name="city"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6 col-md-6">
+                      <div class="input-div">
+                        <input
+                          type="text"
+                          placeholder="District**"
+                          name="district"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6">
+                      <div class="input-div">
+                        <input
+                          type="text"
+                          placeholder="State**"
+                          name="state"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6 col-md-6">
+                      <div class="input-div">
+                        <input
+                          type="number"
+                          placeholder="Zip code**"
+                          name="zip"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6">
+                      <div class="input-div">
+                        <input
+                          type="text"
+                          placeholder="Country**"
+                          name="country"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6 col-md-6">
+                      <div class="input-div">
+                        <input
+                          type="text"
+                          placeholder="Phone Number**"
+                          name="phone"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6">
+                      <div class="input-div">
+                        <input
+                          type="email"
+                          placeholder="Email Address**"
+                          name="email"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                      Add Address
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <% if (addressDetails.address.length==0) { %>
+
+        <h2 class="sub-title">Please add your address!!</h2>
+        <br />
+
+        <% } else { %> <% for( let i = 0; i < addressDetails.address.length; i++
+        ) { %>
+
+        <div class="card" style="margin-bottom: 20px">
+          <div class="card-header">
+            <input
+              type="radio"
+              name="address"
+              value="<%= addressDetails.address[i]._id %>"
+            />Address
+            <span style="font-weight: bold"><%= [i+1] %></span>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p style="font-size: 16px" id="address">
+                <%= addressDetails.address[i].name %>
+                <br />
+                <br /><%= addressDetails.address[i].house %> ,
+                <%=addressDetails.address[i].post %>
+                <br /><%=addressDetails.address[i].city %> -
+                <%=addressDetails.address[i].district %>
+                <br /><%=addressDetails.address[i].state %> -
+                <%=addressDetails.address[i].zip %>
+                <br />Phone:<%=addressDetails.address[i].phone %>
+                <br />Email:<%=addressDetails.address[i].email %>
+                <a
+                  class="float-end"
+                  onclick="addressDelete('<%= addressDetails.address[i]._id %>')"
+                  ><button class="remove-btn" style="color: red">
+                    Delete
+                  </button></a
+                >
+              </p>
+            </blockquote>
+          </div>
+        </div>
+
+        <% } %> <% } %>
+      </div>
+
+      <div class="col-xl-4">
+        <div class="action-item">
+          <div class="action-top">
+            <span class="action-title">Product</span>
+          </div>
+
+          <% for( let i = 0; i < cartDetail.products.length; i++ ) { %>
+
+          <div class="category-item">
+            <div class="category-item-inner">
+              <div class="category-title-area">
+                <span class="category-title"
+                  ><%= cartDetail.products[i].item.name %> × <%=
+                  cartDetail.products[i].quantity %></span
+                >
+              </div>
+            </div>
+          </div>
+
+          <% } %>
+
+          <div class="action-middle">
+            <span class="subtotal">Subtotal</span>
+            <span class="total-price"><%= subtotal %>₹</span>
+          </div>
+          <div class="action-middle">
+            <span class="subtotal">Discount</span>
+            <span class="total-price" style="color: red"
+              >-<%= totaldiscount %>₹</span
+            >
+          </div>
+          <div class="action-middle">
+            <span class="subtotal">Shipping</span>
+            <span class="total-price">Free Shipping</span>
+          </div>
+
+
+          <% if (typeof(coupenCount) == "undefined" || !coupenCount ) { %>
+
+               
+
+            <% } else { %>
+
+              <div class="action-middle">
+                 <span class="subtotal">Coupen</span>
+                 <span style="color: red" class="total-price">-<%= coupenCount %></span>
+              </div>
+
+              <% } %> 
+
+          
+
+
+
+          <div class="action-bottom">
+            <span class="total">Total</span>
+            <span class="total-price"><%= total %>₹</span>
+          </div>
+        </div>
+        <div class="action-item m-0">
+          <div class="payment-options checkout-options">
+            <form action="" id="placeOrder">
+              <div class="form-group">
+                <input
+                  type="radio"
+                  id="freetrans"
+                  name="payment"
+                  value="COD"
+                  checked
+                />
+                <label class="check-title" for="freetrans"
+                  >Cash on delivery</label
+                >
+              </div>
+              <div class="form-group last-child">
+                <input type="radio" id="paypl" name="payment" value="ONLINE" />
+                <label class="check-title" for="paypl">Online Payment</label>
+              </div>
+              <button type="submit" class="place-order-btn">Place Order</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('./layout/footer'); -%>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  $("#placeOrder").submit((e) => {
+    e.preventDefault();
+    let addressId = $('input[name="address"]:checked').val();
+    if (addressId == null) {
+      Swal.fire("Please add or select address");
+    } else {
+      $.ajax({
+        url: `/placeorder?addressId=${addressId}`,
+        method: "post",
+        data: $("#placeOrder").serialize(),
+        success: (response) => {
+          if (response.status == true) {
+            Swal.fire("Thanks For your Order", "You clicked the button!", "success").then((result)=>{
+              location.href="/thankyou"
+            })
+          } else {
+            razorpayPayment(response)
+          }
+        },
+      });
+    }
+  });
+
+  $("#addADDRESS").submit(function (e) {
+    e.preventDefault();
+
+    $.ajax({
+      url: "/addAddress",
+      type: "POST",
+      data: $("#addADDRESS").serialize(),
+      success: (response) => {
+        if (response.status === "success") {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500,
+          }).then((result) => {
+            location.reload();
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Address already exits!",
+          });
+        }
+      },
+    });
+  });
+
+  function addressDelete(id) {
+    location.href = `/removeAddress?id=${id}`;
+    Swal.fire("Deleted!", "Your Address has been deleted.", "success").then(
+      (result) => {
+        location.reload();
+      }
+    );
+  }
+</script>
+
+
+<script>
+
+
+
+  function razorpayPayment(order) {
+                                    var options = {
+                                        "key": "rzp_test_CIVkVcRoeCjqtt", // Enter the Key ID generated from the Dashboard
+                                        "amount": order.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                        "currency": "INR",
+                                        "name": "BigMart",
+                                        "description": "Test Transaction",
+                                        "image": "https://example.com/your_logo",
+                                        "order_id": order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                                        "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+                                        "prefill": {
+                                            "name": "Gaurav Kumar",
+                                            "email": "gaurav.kumar@example.com",
+                                            "contact": "9746854699"
+                                        },
+                                        "notes": {
+                                            "address": "Razorpay Corporate Office"
+                                        },
+                                        "theme": {
+                                            "color": "#528FF0"
+                                        },
+                                        "handler": function (response) {
+                                        
+                                            verifyPayment(response, order.order);
+                                        }
+                                    };
+                             
+                                    var rzp1 = new Razorpay(options);
+                                    rzp1.open()
+                                    
+                                
+                                   
+                                };
+
+
+                                function verifyPayment(payment, order) {
+                                    $.ajax({
+                                        url: '/verify-payment',
+                                        method:'post',
+                                        data: {
+                                            payment,
+                                            order
+                                        },
+                                        success:((response)=>{
+                                            if(response.status == true){
+                                              location.href='thankyou'
+                                            }else{
+                                              console.log("not done")
+                                            }
+                                           
+                                        })
+                                    })
+                                }
+
+
+
+
+</script>

@@ -11,105 +11,252 @@
 
 
 
-<div class="rts-cart-section">
-    <div class="container">
-        <h4 class="section-title">Cart List</h4>
-        <div class="row justify-content-between">
-            <div class="col-xl-7">
-                <div class="cart-table-area">
-                    <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
-                        </thead>
-                        <tbody>
 
 
 
 
 
 
-                            
 
-                            <tr>
-                                <td><div class="product-thumb"><img src="assets/images/products/inner/cart/1.jpg" alt="product-thumb"></div></td>
-                                <td>
-                                    <div class="product-title-area">
-                                        <span class="pretitle">Nighty</span>
-                                        <h4 class="product-title">Shimmer Sheer Tights</h4>
-                                    </div>
-                                </td>
-                                <td><span class="product-price">$69.00</span></td>
-                                <td>
-                                    <div class="cart-edit">
-                                        <div class="quantity-edit">
-                                            <button class="button"><i class="fal fa-minus minus"></i></button>
-                                            <input type="text" class="input" value="3" />
-                                            <button class="button plus">+<i class="fal fa-plus plus"></i></button>
+                            <% if (typeof(cartDetail) == "undefined" || !cartDetail || cartDetail.products.length==0 ) { %>
+                                <div class="thanks-area">
+                                    <div class="container">
+                                        <div class="section-inner">
+                                            
+                                            <div class="section-title">
+                                                <h2 class="sub-title">Cart is empty!</h2>
+                                                <h3 class="sect-title">No products were added to the Cart List.</h3>
+                                            </div>
+                                            <div class="section-button">
+                                                <a class="btn-1" href="/shopPage"><i class="fal fa-long-arrow-left"></i> Go To Shoppage</a>
+                                                
+                                            </div>
                                         </div>
                                     </div>
-                                </td>
-                                <td class="last-td"><button class="remove-btn">Remove</button></td>
-                            </tr>
-                            
+                                </div>
+
+                                <% } else { %>
 
 
 
 
 
+                                    <div class="rts-cart-section">
+                                        <div class="container">
+                                            <h4 class="section-title">Cart List</h4>
+                                            <div class="row justify-content-between">
+                                                <div class="col-xl-7">
+                                                    <div class="cart-table-area">
+                                                        <table class="table table-bordered table-hover">
+                                                            <thead class="thead-dark">
+                                                            </thead>
+                                                            <tbody>
+
+                                    <% for( let i = 0; i < cartDetail.products.length; i++ ) { %>
+
+                                        <tr>
+                                            <td><div class="product-thumb"><a href="/productDetail?id=<%= cartDetail.products[i].item._id %>"><img style="height: 100px;" src="data:<%= cartDetail.products[i].item.product_image[0].contentType %>;base64,<%= cartDetail.products[i].item.product_image[0].imageBase64 %>" alt="product-thumb"></a></div></td>
+                                            <td>
+                                                <div class="product-title-area">
+                                                    <a href="/productDetail?id=<%= cartDetail.products[i].item._id %>"><h4 class="product-title"><%= cartDetail.products[i].item.name %></h4></a>
+                                                </div>
+                                            </td>
+                                            <td><span class="product-price"><%= cartDetail.products[i].item.price %>₹</span></td>
+                                            <td><span class="product-price" style="color: red;"><%= cartDetail.products[i].item.discount %></span></td>
+                                            <td>
+                                                <div class="cart-edit">
+
+                                                    <div class="quantity-edit">
+                                                        <button  onClick="decreaseCount(event, this,'<%= cartDetail.products[i].item._id %>',-1)" class="button"><i class="fal fa-minus minus"></i></button>
+                                                        <input readonly id="quanty<%= i %>"  type="text" class="input" value="<%= cartDetail.products[i].quantity %> " />
+                                                        <button onclick="qtyincre('<%= cartDetail.products[i].item._id %>',1)" class="button plus">+<i class="fal fa-plus plus"></i></button>
+                                                    </div>
+
+                                                </div>
+                                            </td>
+                                            <td class="last-td"><a onclick="removeCart('<%= cartDetail.products[i].item._id %>')"><button class="remove-btn">Remove</button></a></td>
+                                        </tr>
+                                                
+                                        <% } %> 
+
+                                    </tbody>
+                                </table>
 
 
 
+                                <div class="coupon-apply">
+                                    <span class="coupon-text">Coupon Code:</span>
+                                    <div class="apply-input">
+                                        <input type="text" placeholder="Apply coupon here" id="coupenInput">
+                                        <button type="submit" onclick="coupenApply()" class="apply-btn">Apply </i></button>
+                                    </div>  
+                                </div>
+                                <div class="col-xl-6 text-center" style="margin-left: 80px;">
+                                    <span style="color: red; font-weight: 100; font-size: 14px; padding-left: 60px;" id="coupenError"></span>
+                                </div>
+                                
+                                
 
-                        </tbody>
-                    </table>
-                    <div class="coupon-apply">
-                        <span class="coupon-text">Coupon Code:</span>
-                        <div class="apply-input">
-                            <input type="text" placeholder="Apply coupon here">
-                            <button type="submit" class="apply-btn">Apply </i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4">
-                <div class="checkout-box">
-                    <div class="checkout-box-inner">
-                        <div class="subtotal-area">
-                            <span class="title">Subtotal</span>
-                            <span class="subtotal-price">$364.00</span>
-                        </div>
-                        <div class="shipping-check">
-                            <span class="title">Shipping</span>
-                            <div class="check-options">
-                                <form>
-                                      <div class="form-group">
-                                        <input type="checkbox" id="fltrt">
-                                        <label class="check-title" for="fltrt">Flat rate</label>
-                                      </div>
-                                      <div class="form-group">
-                                        <input type="checkbox" id="frsh">
-                                        <label class="check-title" for="frsh">Free shipping</label>
-                                      </div>
-                                </form>
+
+
                             </div>
                         </div>
-                        <div class="shipping-location">
-                            <span class="shipping-to">Shipping to <span>NY.</span></span>
-                            <span class="change-address"><i class="fal fa-map-marker-alt mr--5"></i>Change address</span>
-                        </div>
-                        <div class="total-area">
-                            <span class="title">Total</span>
-                            <span class="total-price">$364.00</span>
+                        <div class="col-xl-4">
+                            <div class="checkout-box">
+                                <div class="checkout-box-inner">
+                                    <div class="subtotal-area">
+                                        <span class="title">Sub Total</span>
+                                        <span id="subTotal" class="subtotal-price"><%= total %>₹</span>
+                                    </div>
+                                    <div class="shipping-location">
+                                        <span class="shipping-to">Discount</span>
+                                        <span id="disTotal" class="change-address" style="color: red;">-<%= discount %></span>
+                                    </div>
+                                    <div class="total-area">
+                                        <span class="title">Total</span>
+                                        <span id="toTal" class="total-price"><%= total-discount %>₹</span>
+                                    </div>
+                                </div>
+                                <a href="/checkout" class="procced-btn">Procced To Checkout</a>
+                                <a href="/shopPage" class="continue-shopping"><i class="fal fa-long-arrow-left"></i> Continue Shopping</a>
+                            </div>
                         </div>
                     </div>
-                    <a href="checkout.html" class="procced-btn">Procced To Checkout</a>
-                    <a href="shop.html" class="continue-shopping"><i class="fal fa-long-arrow-left"></i> Continue Shopping</a>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+            
+            
+
+                                    <% } %>
 
 
+        
+
+
+
+
+
+
+
+<script>
+
+
+
+function coupenApply() {
+    const valueCoupen=document.getElementById("coupenInput").value
+    if (!valueCoupen) {
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please insert your Coupen code!'
+        })
+    } else {
+        $.ajax({
+        url:'/coupenApply',
+      method:"post",
+      data:{
+        valueCoupen
+      },
+      success:(response)=>{         
+        $("#coupenError").html(response.message)
+      }
+    })
+    }
+
+    
+}
+
+
+
+
+
+function decreaseCount(a,b,id,count) {
+  var input = b.nextElementSibling;
+  var value = parseInt(input.value, 10);
+  if (value > 1) {
+    value = isNaN(value) ? 0 : value;
+    input.value = value;
+    let quantity = parseInt($(`#${id}`).val())
+    $.ajax({
+        url:'/qtyincre',
+      method:"post",
+      data:{
+        id,
+        quantity,
+        count
+      },
+      success:(response)=>{         
+        $("#subTotal").html(response.subtotal+"₹")
+        $("#disTotal").html("-"+response.totaldiscount+"₹")   
+        $("#toTal").html(response.total+"₹")
+      }
+    })
+   }
+}
+
+
+
+
+function qtyincre(id,count) {
+    let quantity = parseInt($(`#${id}`).val())
+    $.ajax({
+        url:'/qtyincre',
+      method:"post",
+      data:{
+        id,
+        quantity,
+        count 
+      },
+      success:(response)=>{         
+          $("#subTotal").html(response.subtotal+"₹")
+          $("#disTotal").html("-"+response.totaldiscount+"₹")   
+          $("#toTal").html(response.total+"₹")
+      }
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function removeCart(id) {
+    Swal.fire({
+ title: 'Are you sure?',
+ text: "You won't be able to revert this!",
+ icon: 'warning',
+ showCancelButton: true,
+ confirmButtonColor: '#3085d6',
+ cancelButtonColor: '#d33',
+ confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+ if (result.isConfirmed) {
+   location.href = `/removecart?id=${id}`
+   Swal.fire(
+     'Deleted!',
+     'Your Product has been deleted.',
+     'success'
+   ).then((result)=>{
+      location.reload()
+     })
+ }
+})
+}
+
+</script>
 
 
 
