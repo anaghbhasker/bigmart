@@ -60,7 +60,23 @@ module.exports.orders = async(req, res) => {
   res.locals.orderDetails=orders
   res.render("admin/orders",{ moment: moment });
 };
-module.exports.salesreport = (req, res) => {
+module.exports.salesreport = async(req, res) => {
+  
+  let todayDate = new Date();
+  let thirtyDaysAgo = new Date(new Date().getTime()-(30*24*60*60*1000));;
+  let totalSellsInThisMonth=await Order.aggregate([
+    {
+      $match: { createdAt : {$gte:thirtyDaysAgo }}
+    },
+    {
+      $group: {
+        _id: {$dateToString : { format: "%d-%m-%Y", date: "$createdAt" }},
+        totalamount: { $sum: '$totalamount' },
+        count: { $sum: 1 }
+      }
+    }
+  ])
+  res.locals.salesReport=totalSellsInThisMonth
   res.render("admin/salesreport");
 };
 module.exports.coupens = async(req, res) => {
@@ -169,6 +185,19 @@ module.exports.deleteCategory = async (req, res) => {
   }
 };
 
+
+
+module.exports.proCat =async(req,res)=>{
+  try {
+    const catId=req.query.id
+    const productData=await Products.find({category:catId})
+    res.locals.productDet=productData
+    res.render('admin/proBycat')
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 ///////////////////////////////////////////////////////////
 
 module.exports.addPOSTroducts = async (req, res) => {
@@ -199,6 +228,7 @@ module.exports.addPOSTroducts = async (req, res) => {
       tags: product.producttage,
       product_image: result,
     });
+
     try {
       file.forEach((el,i) => {
         fs.rmSync(el.path,{
@@ -293,7 +323,9 @@ module.exports.addBanner = async (req, res) => {
   let img = fs.readFileSync(file.path);
   const encode_image = img.toString("base64");
   await Banners.create({
-    banner_tittle: banner.bannername,
+    banner_tittle1: banner.bannertittle1,
+    banner_tittle2: banner.bannertittle2,
+    banner_startprice: banner.bannerprice,
     banner_thumbnail: file.originalname,
     contentType: file.mimetype,
     imageBase64: encode_image,

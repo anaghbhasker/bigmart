@@ -1,71 +1,74 @@
 <%- include('./layout/main'); -%> <%- include('./layout/header'); -%>
+<link rel="stylesheet" href="
+https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js
+">
 
 <div class="main-panel">
-  <div class="content-wrapper">
-    <div class="main-panel">
-      <div class="content-wrapper">
-        <div class="page-header">
-          <h3 class="page-title">Salesreport</h3>
-          
-        </div>
-        <div class="row">
-          <div class="col-lg-6 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Line chart</h4>
-                <canvas id="lineChart" style="height: 250px"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Bar chart</h4>
-                <canvas id="barChart" style="height: 230px"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Area chart</h4>
-                <canvas id="areaChart" style="height: 250px"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Doughnut chart</h4>
-                <canvas id="doughnutChart" style="height: 250px"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Pie chart</h4>
-                <canvas id="pieChart" style="height: 250px"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Scatter chart</h4>
-                <canvas id="scatterChart" style="height: 250px"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="content-wrapper">
 
-     
+
+        <div class="row ">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Sales Report</h4>
+                  <a id="downloadexcel"><div class="badge badge-outline-success float-right">Download</div></a>
+                  <h6 style="color: blue;" class="card-title">Last 30 days Sales Report</h6>
+                  
+                  <div class="table-responsive">
+                    <table class="table" id="example-table">
+                      <thead>
+                        <tr>
+                          <th>
+                            Date
+                          </th>
+                          <th> Total Price </th>
+                          <th> Profit </th>
+                          <th> Order Count </th>
+                          
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+
+                        
+                         
+               <% salesReport.forEach(report => { %>
+                
+               
+                        
+                        <tr>
+                          <td><%= report._id %>  </td>
+                          <td> <%= report.totalamount %> ₹ </td>
+                          <td> <%=  report.totalamount*5/100 %> %</td>
+                          <td> <%= report.count %>  </td>
+                         
+                        </tr>
+                        
+
+                        <% }) %>
+
+
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
+   
   </div>
-</div>
- <%- include('./layout/footer'); -%>
+  
+  <script src="/table2excel.js"></script>
+  <script>
+
+    document.getElementById('downloadexcel').addEventListener('click',function(){
+      console.log("vannu");
+      var table2excel = new Table2Excel();
+      table2excel.export(document.querySelectorAll("#example-table"));
+    })
+    
+  </script>

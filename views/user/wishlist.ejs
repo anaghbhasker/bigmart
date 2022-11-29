@@ -51,42 +51,48 @@
 
             <% } else { %>
 
+
+              <table class="table table-bordered table-hover">
+                <tbody>
+                <tr class="heading">
+                <th></th>
+                 <th>Product Name</th>
+             <th>Unit Price</th>
+             <th>Stock Status</th>
+              <th></th>
+            </tr>
                        <% for( let i = 0; i < productsDetails.wishlist.length; i++ ) { %>
 
 
 
    
        
-                             <table class="table table-bordered table-hover">
-                                  <tbody>
-                                  <tr class="heading">
-                                  <th></th>
-                                   <th>Product Name</th>
-                               <th>Unit Price</th>
-                               <th>Stock Status</th>
-                                <th></th>
-                              </tr>
-                              </tbody>
-                          <tbody>
-
-                      <tr>
+                             
+                              
+      <tr>
                 <td class="first-td"><a href="/removewishlist?id=<%= productsDetails.wishlist[i]._id %>"><button class="remove-btn"><i class="fal fa-times"></i></button></td></a>
                 <td class="first-child"><a href="/productDetail?id=<%= productsDetails.wishlist[i]._id %>" style="height: 100px; width: 100px;"><img
                             src="data:<%= productsDetails.wishlist[i].product_image[0].contentType %>;base64,<%= productsDetails.wishlist[i].product_image[0].imageBase64 %>" alt=""></a>
                     <a href="/productDetail?id=<%= productsDetails.wishlist[i]._id %>" class="pretitle"><%= productsDetails.wishlist[i].name %></a>
                 </td>
-                </td>
+              
                 <td><span class="product-price"><%= productsDetails.wishlist[i].price %>₹</span></td>
                 <td class="stock">In Stock</td>
-                </td>
+              
                 <td class="last-td"><a onclick="addCArt('<%= productsDetails.wishlist[i]._id %>')"><button class="cart-btn"><i class="rt-basket-shopping"></i> Add To
                         Cart</button></a></td>
-            </tr>
+       </tr>
         </tbody>
-    </table>
+    
+
+
+
+
+
+
 
         <% } %> 
-
+      </table>
    
                 
                 <% } %>

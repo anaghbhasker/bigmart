@@ -82,7 +82,7 @@
                     <th></th>
                     <th>Category image</th>
                     <th>Category name</th>
-                    <th>Product count</th>
+                   
                     <th>Products</th>
                     <th></th>
                   </tr>
@@ -102,9 +102,9 @@
                       <img src="data:<%= category.contentType %>;base64,<%= category.imageBase64 %>" alt="image" style="width: 70px; height: 70px;" class="ml-4">
                     </td>
                     <td><%= category.category_name %></td>
-                    <td>1</td>
+                    
                     <td>
-                      <a href="#">
+                      <a href="/admin/proCAt?id=<%= category._id %>">
                         <div class="badge badge-outline-success">Products</div>
                       </a>
                     </td>

@@ -92,7 +92,7 @@
 
 
 
-            <% for( let i = 0; i < orderDetails.length; i++ ) { %>
+            <% for( let i = ( orderDetails.length - 1); i > 0 ; i-- ) { %>
 
 
           
@@ -106,7 +106,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-5">
                           <div>
                             <h5 class="mb-0">Order:<%= orderDetails[i]._id %></h5>
-                            <p class="mb-0">Order Confirmed : <span><%= moment(orderDetails[i].createdAt).format('DD-MM-YYYY');  %></span></p>
+                            <p class="mb-0">Order Confirmed : <span><%= moment(orderDetails[i].createdAt).format('DD-MM-YYYY')%></span></p>
                           </div>
                         </div>
   
@@ -131,6 +131,10 @@
                           <li class="step0 active text-center" id="step2">Shipping</li>
                           <li class="step0 active text-center" id="step3">Delivered</li>
                           <li class="step0 text-muted text-center text-end" id="step4"></li>
+  
+                           <% }else if (orderDetails[i].status==="pending") { %>
+                            <!-- shipping -->
+                            <h1 style="color: red;">Payment Pending!!</h1>
   
                            <% } else if (orderDetails[i].status==="delivered") { %>
                           <!-- delivered -->

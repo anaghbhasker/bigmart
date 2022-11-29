@@ -43,26 +43,38 @@
                     <form action="/admin/addBanner" method="post" enctype="multipart/form-data">
                       <div class="mb-3">
                         <label for="recipient-name" class="col-form-label"
-                          >Banner Tittle:</label
+                          >Banner Tittle1:</label
                         >
                         <div id="errorBanename"></div>
                         <input
                           type="text"
                           class="form-control"
-                          name="bannername"
+                          name="bannertittle1"
                           id="bannername"
                         />
                       </div>
                       <div class="mb-3">
                         <label for="recipient-name" class="col-form-label"
-                          >Banner description:</label
+                          >Banner Tittle2:</label
                         >
-                        <div id="errorBandes"></div>
+                        <div id="errorBanename"></div>
                         <input
                           type="text"
                           class="form-control"
-                          name="bannerdescription"
-                          id="bannerdescription"
+                          name="bannertittle2"
+                          id="bannername"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label"
+                          >Price:</label
+                        >
+                        <div id="errorBanename"></div>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="bannerprice"
+                          id="bannername"
                         />
                       </div>
                       <div class="mb-3">
@@ -94,7 +106,8 @@
                   <tr>
                     <th></th>
                     <th>Banner image</th>
-                    <th>Banner tittle</th>
+                    <th>Banner tittle1</th>
+                    <th>Banner tittle2</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -112,7 +125,8 @@
                     <td>
                       <img src="data:<%= banner.contentType %>;base64,<%= banner.imageBase64 %>" alt="image" style="width: 70px; height: 70px;" class="ml-2">
                     </td>
-                    <td><%= banner.banner_tittle %></td>
+                    <td><%= banner.banner_tittle1 %></td>
+                    <td><%= banner.banner_tittle2 %></td>
                 
                     <td>
                       <a onclick="bannerDelete('<%= banner._id %>')">

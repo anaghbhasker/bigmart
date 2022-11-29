@@ -35,6 +35,7 @@ router.get('/unblockUser',adminController.userUnblock)
 
 router.post('/addCategory',fileupload.upload.single('categoryimage'),adminController.addCategory)
 router.get('/deleteCategory',adminController.deleteCategory)
+router.get('/proCAt',adminController.proCat)
 
 ///////////////////////////////////////////////////////////
 

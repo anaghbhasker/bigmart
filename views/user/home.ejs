@@ -6,63 +6,78 @@
 
 
 <!--================= Banner Section Start Here =================-->
-        <div class="banner banner-3">
-            <div class="swiper bannerSlide">
-                <div class="swiper-wrapper">
+<div class="banner banner-3 banner-5">
+  <div class="swiper bannerSlidee">
+      <div class="swiper-wrapper">
 
+        <% bannerDetails.forEach(banner => { %>
+         
+   
 
+          <div class="swiper-slide">
+              <div class="banner-single bg-image-5 balo">
+                  <div class="container">
+                      <div class="single-inner">
+                          <div class="contents">
+                              <span class="banner-pretitle-box">Don’t Miss! Only For This Week </span>
+                              <h1 class="banner-heading mb--30"><%= banner.banner_tittle1 %>  <br>
+                                <%= banner.banner_tittle2 %></h1>
+                              <div class="banner-action">
+                                  <p>From</p>
+                                  <span class="product-price"><%= banner.banner_startprice %>₹</span>
+                              </div>
+                          </div>
+                          <div class="banner-product-thumb"><img
+                            src="data:<%= banner.contentType %>;base64,<%= banner.imageBase64 %>" alt="banner-product"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
-<% bannerDetails.forEach(banner => { %>
- 
-
-
-                    <div class="swiper-slide">
-                        <div class="banner-single bg-image bg-image-3">
-                            <div class="container">
-                                <div class="single-inner">
-                                    <div class="contents">
-                                        <span class="banner-pretitle-box">Hot Deal In This Week</span>
-                                        <h1 class="banner-heading mb--30">
-                                            <%= banner.banner_tittle %></h1>
-                                        <div class="banner-action">
-                                            <a class="banner-btn banner-btn2" href="/shoppage"><i
-                                                    class="rt-cart-shopping"></i>Shop
-                                                Now</a>
-                                            <div class="banner-review">
-                                                <div class="review">
-                                                    <div class="star"><i class="fas fa-star"></i></div>
-                                                    <div class="star"><i class="fas fa-star"></i></div>
-                                                    <div class="star"><i class="fas fa-star"></i></div>
-                                                    <div class="star"><i class="fas fa-star"></i></div>
-                                                    <div class="star"><i class="fal fa-star"></i></div>
-                                                </div>
-                                                <span class="review-text"><span class="value">100+</span> Review</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="banner-product-thumb"><img style="height: 1000px;"
-                                            src="data:<%= banner.contentType %>;base64,<%= banner.imageBase64 %>" alt="banner-product"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <% }) %>
-
-
-                    
-                </div>
-                <div class="slider-navigation">
-                    <div class="swiper-button-prev slider-btn prev"><i class="fal fa-long-arrow-up"></i></div>
-                    <div class="swiper-button-next slider-btn next"><i class="fal fa-long-arrow-down"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--================= Banner Section End Here =================-->
+          <% }) %>
+          <div class="swiper-slide">
+              <div class="banner-single bg-image-5">
+                  <div class="container">
+                      <div class="single-inner">
+                          <div class="contents">
+                              <span class="banner-pretitle-box">Hot Deal In This Week</span>
+                              <h1 class="banner-heading mb--30">Elegance <br>
+                                  Hand Craft</h1>
+                              <div class="banner-action">
+                                  <a class="banner-btn banner-btn2" href="#0"><i
+                                          class="rt-cart-shopping"></i>Shop
+                                      Now</a>
+                                  <div class="banner-review">
+                                      <div class="review"> 
+                                          <div class="star"><i class="fas fa-star"></i></div>
+                                          <div class="star"><i class="fas fa-star"></i></div>
+                                          <div class="star"><i class="fas fa-star"></i></div>
+                                          <div class="star"><i class="fas fa-star"></i></div>
+                                          <div class="star"><i class="fal fa-star"></i></div>
+                                      </div>
+                                      <span class="review-text"><span class="value">100+</span> Review</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="banner-product-thumb"><img
+                                  src="assets/images/products/banner-product2.png" alt="banner-product"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="banner5 floating-elements">
+      <div class="floating-item item1"><img src="assets/images/items/gros1.png" alt="floating-element"></div>
+      <div class="floating-item item2"><img src="assets/images/items/gros2.png" alt="floating-element"></div>
+      <div class="floating-item item3"><img src="assets/images/items/gros3.png" alt="floating-element"></div>
+  </div>
+</div>
+<!--================= Banner Section End Here =================-->
 
 <!--================= Offer Section Start Here =================-->
-<div class="rts-offer-section">
+
+<!-- <div class="rts-offer-section">
   <div class="container">
     <div class="rts-offer-inner">
       <p class="description">
@@ -71,7 +86,8 @@
       </p>
     </div>
   </div>
-</div>
+</div> -->
+
 <!--================= Offer Section End Here =================-->
 
 <!--================= Category Section Start Here =================-->
@@ -91,7 +107,7 @@
                 style="height: 400px; width: 500px"
               />
             </a>
-            <p class="item-quantity">20 <span>items</span></p>
+            
             <a href="category.html" class="item-catagory-box">
               <h3 class="title"><%= category.category_name %></h3>
             </a>
@@ -105,117 +121,109 @@
 </div>
 <!--================= Category Section End Here =================-->
 
-<!--================= Hand Picked Section Start Here =================-->
-<div class="rts-hand-picked-products-section">
+
+
+
+
+
+
+<!--================= Product Category Section Start Here =================-->
+<div class="rts-featured-product-section rts-featured-product-section2 section-gap">
   <div class="container">
-    <div class="section-header section-header3 text-center">
-      <div class="wrapper">
-        <div class="sub-content">
-          <img class="line-1" src="assets/images/banner/wvbo-icon.png" alt="" />
-          <span class="sub-text">Featured</span>
-          <img class="line-2" src="assets/images/banner/wvbo-icon.png" alt="" />
-        </div>
-        <h2 class="title">HAND-PICKED PRODUCT</h2>
+      <div class="section-header section-header4">
+          <span class="section-title section-title-2 mb--5
+          ">Featured Products</span>
       </div>
-    </div>
-    <div class="slider-div">
-      <div class="swiper rts-sixSlide-over">
-        <div class="swiper-wrapper">
-          <% productDetails.forEach(products => { %>
+      <div class="row justify-content-center">
+          
+        <% productDetails.forEach(products => { %>
 
-          <div class="swiper-slide">
-            <div class="product-item element-item1">
-              <a class="product-image image-hover-variations">
-                <div class="image-vari1 image-vari">
-                  <img
-                    src="data:<%= products.product_image[0].contentType %>;base64,<%= products.product_image[0].imageBase64 %>"
-                    alt="product-image"
-                    height="300px"
-                  />
-                </div>
-                <div class="image-vari2 image-vari">
-                  <img
-                    src="data:<%= products.product_image[1].contentType %>;base64,<%= products.product_image[1].imageBase64 %>"
-                    alt="product-image"
-                    height="300px"
-                  />
-                </div>
-              </a>
-              <div class="bottom-content">
-                <a href="#" class="product-name"><%= products.name %></a>
-                <div class="action-wrap">
-                  <span class="price">₹<%= products.price %></span>
-                </div>
+
+
+          <div class="col-lg-15 col-md-4 col-sm-6">
+              <div class="product-item">
+                  <div class="product-status-bar">
+                      <div class="rating-stars-group">
+                          <div class="rating-star"><i class="fas fa-star"></i></div>
+                          <div class="rating-star"><i class="fas fa-star"></i></div>
+                          <div class="rating-star"><i class="fas fa-star"></i></div>
+                          <div class="rating-star"><i class="fas fa-star"></i></div>
+                          <div class="rating-star"><i class="fal fa-star"></i></div>
+                      </div>
+                      <span class="stock">In Stock</span>
+                  </div>
+                  <a href="/productDetail?id=<%= products._id %>" class="product-thumb"><img style="width: 100px; height: 100px;"
+                          src="data:<%= products.product_image[0].contentType %>;base64,<%= products.product_image[0].imageBase64 %>" alt="product-image"></a>
+                  <div class="contents">
+                      <span class="product-type"><%= products.category.category_name %></span>
+                      <a class="product-title"><%= products.name %></a>
+                      <div class="product-bottom-content">
+                          <span class="product-price"><%= products.price %>₹</span>
+                          <button class="wishlist"><i class="rt-heart"></i></button>
+                      </div>
+                      <div class="product-features product-features3">
+                          <div class="discount-tag product-tag"><%= products.discount %>%</div>
+                      </div>
+                      <div class="product-actions product-actions3">
+
+                        <% if (typeof(user) == "undefined" || !user ) { %>
+                          <a onclick="pleaselogin()" class="product-action"><i class="fal fa-heart"></i></a>
+                          <% } else { %>
+                            <a onclick="addWishlist('<%= products._id %>')" class="product-action"><i class="fal fa-heart"></i></a>
+                            <% } %>
+                          
+
+                      </div>
+                  </div>
+                  <div class="product-bottom-action">
+
+
+                    <% if (typeof(user) == "undefined" || !user ) { %>
+                      <a onclick="pleaselogin()" class="addto-cart"><i class="fal fa-shopping-bag mr--5"></i> Add To
+                        Cart</a>
+
+                      <% } else { %>
+                        <a onclick="addCArt('<%= products._id %>')" class="addto-cart"><i class="fal fa-shopping-bag mr--5"></i> Add To
+                          Cart</a>
+
+                        <% } %>
+                      
+
+
+
+
+
+
+
+                      <button onclick="quickView('<%= products._id %>')" class="view-btn"><i class="fal fa-eye"></i></button>
+                  </div>
               </div>
-              <div class="quick-action-button">
-                <div class="cta-single cta-plus">
-                  <a href="#"><i class="rt-plus"></i></a>
-                </div>
-                <div class="cta-single cta-quickview">
-                  <button
-                    onclick="quickView('<%= products._id %>')"
-                    class="product-details-popup-btn"
-                  >
-                    <i class="far fa-eye"></i>
-                  </button>
-                </div>
-
-
-
-
-
-
-
-
-                <% if (typeof(user) == "undefined" || !user ) { %>
-
-                <div class="cta-single cta-wishlist">
-                  <a onclick="pleaselogin()"><i class="far fa-heart"></i></a>
-                </div>
-                <div class="cta-single cta-addtocart">
-                  <a onclick="pleaselogin()"><i class="fa fa-cart-plus"></i></a>
-                </div>
-
-                <% } else { %>
-
-                <div id="like" class="cta-single cta-wishlist">
-                  <a onclick="addWishlist('<%= products._id %>')"
-                    ><i class="far fa-heart"></i
-                  ></a>
-                </div>
-
-                <div class="cta-single cta-addtocart">
-                  <a onclick="addCArt('<%= products._id %>')"><i class="fa fa-cart-plus"></i></a>
-                </div>
-
-                <% } %>
-
-
-
-
-
-
-
-
-
-
-                
-              </div>
-              <div class="product-features">
-                <div class="discount-tag product-tag">
-                  <%= products.discount %>%
-                </div>
-              </div>
-            </div>
           </div>
 
+
+
           <% }) %>
-        </div>
+          
+          
       </div>
+  </div>
+</div>
+
+<!--================= Product Category Section End Here =================-->
+
+
+<div class="rts-offer-section">
+  <div class="container">
+    <div class="rts-offer-inner">
+      
     </div>
   </div>
 </div>
-<!--================= Hand Picked Section End Here =================-->
+
+
+
+
+
 
 <!--================= Product-details Section Start Here =================-->
 <div class="product-details-popup-wrapper">
