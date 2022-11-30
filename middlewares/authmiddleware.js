@@ -22,3 +22,15 @@ module.exports.checkUserAuth = async(req,res,next) => {
     }
 
 }
+
+
+module.exports.checkAUserSNDAuth = async(req,res,next) => {
+   
+    let session = req.session.userLogged
+    if(session){
+        next()
+    }
+    else if(!session){
+        res.redirect('/userlogin')
+    }
+}

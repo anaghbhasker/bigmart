@@ -8,6 +8,7 @@ const twilio = require("../OTPVERIFY/twilio");
 const Cart = require("../model/cartSchema");
 let phoneNum;
 let userOTP;
+let userNew;
 ///////////////////////////////////////////////////////////
 
 module.exports.homepage = async (req, res) => {
@@ -131,3 +132,53 @@ module.exports.userLogout = (req, res) => {
 
 ///////////////////////////////////////////////////////////
 
+module.exports.lostPassword=async(req,res)=>{
+  try {
+    res.render('user/getotpChangePass')
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+module.exports.changePass=async(req,res)=>{
+  try {
+     userNew=req.body
+    const userFind= await User.findOne({email:userNew.email})
+    if (userFind) {
+      if (userNew.phone) {
+        twilio.otpSend(userNew.phone);
+        res.json({ status : "success"})
+      } else {
+        userNew=null
+        res.json({ status : "false"})
+      }
+    } else {
+      userNew=null
+      res.json({ status : "false"})
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+module.exports.postchangeOtp=async(req,res)=>{
+  try {
+   let changeDetail =req.body
+   changeDetail.newPassword= await bcrypt.hash(changeDetail.newPassword,10)
+   twilio.otpVerify(userNew.phone, changeDetail.otp, abc);
+   async function abc(ac) {
+    if (ac) {
+      await User.findOneAndUpdate({email:userNew.email},{password:changeDetail.newPassword})
+      res.json({ status : "success"})
+      userNew=null
+    } else {
+      res.json({ status : "false"})
+    }
+  }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+///////////////////////////////////////////////////////////

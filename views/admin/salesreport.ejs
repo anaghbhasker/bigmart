@@ -1,7 +1,5 @@
 <%- include('./layout/main'); -%> <%- include('./layout/header'); -%>
-<link rel="stylesheet" href="
-https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js
-">
+
 
 <div class="main-panel">
     <div class="content-wrapper">
@@ -12,11 +10,10 @@ https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Sales Report</h4>
-                  <a id="downloadexcel"><div class="badge badge-outline-success float-right">Download</div></a>
                   <h6 style="color: blue;" class="card-title">Last 30 days Sales Report</h6>
                   
                   <div class="table-responsive">
-                    <table class="table" id="example-table">
+                    <table class="table" id="example" style="width:100%">
                       <thead>
                         <tr>
                           <th>
@@ -62,13 +59,25 @@ https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel
    
   </div>
   
-  <script src="/table2excel.js"></script>
-  <script>
 
-    document.getElementById('downloadexcel').addEventListener('click',function(){
-      console.log("vannu");
-      var table2excel = new Table2Excel();
-      table2excel.export(document.querySelectorAll("#example-table"));
-    })
-    
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> 
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+  
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+  <script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );   
   </script>

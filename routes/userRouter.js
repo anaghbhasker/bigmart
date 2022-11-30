@@ -29,6 +29,13 @@ router.get('/logout',userController.userLogout)
 
 ///////////////////////////////////////////////////////////
 
+router.get('/forgotPassword',userController.lostPassword)
+router.post('/changePassword',userController.changePass)
+router.post('/postChangeOtp',userController.postchangeOtp)
+
+
+///////////////////////////////////////////////////////////
+
 router.get('/productQuickview',userController.productquickview)
 
 ///////////////////////////////////////////////////////////
@@ -40,34 +47,34 @@ router.get('/productDetail',shopController.productDetail)
 ///////////////////////////////////////////////////////////
 
 router.get('/wishlist',authmiddleware.checkUserAuth,shopController.wishList)
-router.get('/addWishlist',shopController.addWishlist)
-router.get('/removewishlist',shopController.removeWishlist)
+router.get('/addWishlist',authmiddleware.checkAUserSNDAuth,shopController.addWishlist)
+router.get('/removewishlist',authmiddleware.checkAUserSNDAuth,shopController.removeWishlist)
 
 ///////////////////////////////////////////////////////////
 
 router.get('/cartlist',authmiddleware.checkUserAuth,cartController.cartPage)
-router.get('/addCart',cartController.addCart)
-router.get('/removecart',cartController.removeCart)
-router.post('/qtyincre',cartController.qudtyIncre)
+router.get('/addCart',authmiddleware.checkAUserSNDAuth,cartController.addCart)
+router.get('/removecart',authmiddleware.checkAUserSNDAuth,cartController.removeCart)
+router.post('/qtyincre',authmiddleware.checkAUserSNDAuth,cartController.qudtyIncre)
 
 ///////////////////////////////////////////////////////////
 
-router.get('/checkout',checkoutController.checkoutPage)
-router.post('/addAddress',checkoutController.addAddress)
-router.get('/removeAddress',checkoutController.removeAddress)
-router.post('/placeorder',checkoutController.placeOrder)
-router.post('/verify-payment',checkoutController.verifyPayment)
-router.get('/thankyou',checkoutController.thankYoupage)
+router.get('/checkout',authmiddleware.checkAUserSNDAuth,checkoutController.checkoutPage)
+router.post('/addAddress',authmiddleware.checkAUserSNDAuth,checkoutController.addAddress)
+router.get('/removeAddress',authmiddleware.checkAUserSNDAuth,checkoutController.removeAddress)
+router.post('/placeorder',authmiddleware.checkAUserSNDAuth,checkoutController.placeOrder)
+router.post('/verify-payment',authmiddleware.checkAUserSNDAuth,checkoutController.verifyPayment)
+router.get('/thankyou',authmiddleware.checkAUserSNDAuth,checkoutController.thankYoupage)
 
 
-router.post('/coupenApply',checkoutController.coupenapply)
+router.post('/coupenApply',authmiddleware.checkAUserSNDAuth,checkoutController.coupenapply)
 
 
 ///////////////////////////////////////////////////////////
 
-router.get('/account',profileController.accountPage)
-router.post('/editProfile',profileController.editProfile)
-router.get('/cancelOrder',profileController.cancelOrder)
+router.get('/account',authmiddleware.checkAUserSNDAuth,profileController.accountPage)
+router.post('/editProfile',authmiddleware.checkAUserSNDAuth,profileController.editProfile)
+router.get('/cancelOrder',authmiddleware.checkAUserSNDAuth,profileController.cancelOrder)
 
 
 
