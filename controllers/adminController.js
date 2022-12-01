@@ -3,17 +3,158 @@ const User = require("../model/userSchema");
 const Category = require("../model/categorySchema");
 const Products = require("../model/productSchema");
 const Banners = require("../model/bannerSchema");
-const Order = require("../model/orderSchema")
-const Coupen = require("../model/coupenSchema")
+const Order = require("../model/orderSchema");
+const Coupen = require("../model/coupenSchema");
 const multer = require("multer");
 const fs = require("fs");
 const moment = require("moment");
 const { default: mongoose } = require("mongoose");
 const { Console } = require("console");
 
-module.exports.indexpage = (req, res) => {
-  res.render("admin/indexpage");
+module.exports.indexpage = async (req, res) => {
+  try {
+    // console.log(moment().format('LL'));
+    let todayDate = new Date();
+    let oneWeekAgo = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
+
+    /////todayIncome
+    let todayIncome = await Order.aggregate([
+      {
+        $match: {
+          createdAt: { todayDate },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalIncome: { $sum: "$totalamount" },
+        },
+      },
+    ]);
+
+    /////Last7daysIncome
+    let last7daysIncome = await Order.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: oneWeekAgo },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalIncome: { $sum: "$totalamount" },
+        },
+      },
+    ]);
+
+    /////totalIncome
+    let totalIncome = await Order.aggregate([
+      {
+        $match: {
+          createdAt: { $lte: todayDate },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalIncome: { $sum: "$totalamount" },
+        },
+      },
+    ]);
+
+    res.locals.todayIncome = todayIncome;
+    res.locals.LastSEVENIncome = last7daysIncome;
+    res.locals.totalIncome = totalIncome;
+
+    let totalOrderCancel = await Order.aggregate([
+      {
+        $match: {
+          status: "cancel",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    res.locals.cancelOrder=totalOrderCancel
+
+
+
+    let totalUser=await User.find().count()
+    let totalCategory=await Category.find().count()
+    let totalProduct=await Products.find().count()
+    
+    res.locals.totalUSER=totalUser
+    res.locals.totalCATA=totalCategory
+    res.locals.totalPRO=totalProduct
+
+
+    /////CODpayment
+    let codPayment = await Order.aggregate([
+      {
+        $match: {
+          payment: "COD",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalIncome: { $sum: "$totalamount" },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    ////ONLINEpayment
+    
+    let onlinePayment = await Order.aggregate([
+      {
+        $match: {
+          payment: "ONLINE",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalIncome: { $sum: "$totalamount" },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    res.locals.cod=codPayment
+    res.locals.online=onlinePayment
+
+
+
+    let chartSevenDays = await Order.aggregate([
+      {
+        $group: {
+          _id:{$month:'$createdAt'},
+          totalamount: { $sum: "$totalamount" }
+        },
+      },
+      {
+        $sort:{
+          _id:1
+        }
+      }
+    ]);
+
+    chartSevenDays=JSON.stringify(chartSevenDays)
+    res.locals.chart=chartSevenDays
+
+
+
+    res.render("admin/indexpage");
+  } catch (error) {
+    console.log(error);
+  }
 };
+
 module.exports.userlist = async (req, res) => {
   try {
     let users = await User.find();
@@ -55,35 +196,34 @@ module.exports.category = async (req, res) => {
     console.log(error);
   }
 };
-module.exports.orders = async(req, res) => {
-  const orders=await Order.find().populate('user')
-  res.locals.orderDetails=orders
-  res.render("admin/orders",{ moment: moment });
+module.exports.orders = async (req, res) => {
+  const orders = await Order.find().populate("user");
+  res.locals.orderDetails = orders;
+  res.render("admin/orders", { moment: moment });
 };
-module.exports.salesreport = async(req, res) => {
-  
+module.exports.salesreport = async (req, res) => {
   let todayDate = new Date();
-  let thirtyDaysAgo = new Date(new Date().getTime()-(30*24*60*60*1000));;
-  let totalSellsInThisMonth=await Order.aggregate([
+  let thirtyDaysAgo = new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000);
+  let totalSellsInThisMonth = await Order.aggregate([
     {
-      $match: { createdAt : {$gte:thirtyDaysAgo }}
+      $match: { createdAt: { $gte: thirtyDaysAgo } },
     },
     {
       $group: {
-        _id: {$dateToString : { format: "%d-%m-%Y", date: "$createdAt" }},
-        totalamount: { $sum: '$totalamount' },
-        count: { $sum: 1 }
-      }
-    }
-  ])
-  res.locals.salesReport=totalSellsInThisMonth
+        _id: { $dateToString: { format: "%d-%m-%Y", date: "$createdAt" } },
+        totalamount: { $sum: "$totalamount" },
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+  res.locals.salesReport = totalSellsInThisMonth;
   res.render("admin/salesreport");
 };
-module.exports.coupens = async(req, res) => {
-  const today= new Date()
-  const coupen= await Coupen.find()
-  res.locals.coupenDetails=coupen
-  res.render("admin/coupens",{ moment,today });
+module.exports.coupens = async (req, res) => {
+  const today = new Date();
+  const coupen = await Coupen.find();
+  res.locals.coupenDetails = coupen;
+  res.render("admin/coupens", { moment, today });
 };
 module.exports.banners = async (req, res) => {
   let banners = await Banners.find();
@@ -185,18 +325,16 @@ module.exports.deleteCategory = async (req, res) => {
   }
 };
 
-
-
-module.exports.proCat =async(req,res)=>{
+module.exports.proCat = async (req, res) => {
   try {
-    const catId=req.query.id
-    const productData=await Products.find({category:catId})
-    res.locals.productDet=productData
-    res.render('admin/proBycat')
+    const catId = req.query.id;
+    const productData = await Products.find({ category: catId });
+    res.locals.productDet = productData;
+    res.render("admin/proBycat");
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 ///////////////////////////////////////////////////////////
 
@@ -230,15 +368,13 @@ module.exports.addPOSTroducts = async (req, res) => {
     });
 
     try {
-      file.forEach((el,i) => {
-        fs.rmSync(el.path,{
-  
-        });
+      file.forEach((el, i) => {
+        fs.rmSync(el.path, {});
       });
     } catch (error) {
       console.log(error);
     }
-    
+
     res.redirect("/admin/addProducts");
   } catch (error) {
     console.log(error);
@@ -339,90 +475,86 @@ module.exports.deleteBanner = async (req, res) => {
   await Banners.findByIdAndDelete(bannerId);
 };
 
+///////////////////////////////////////////////////////////
+
+module.exports.orderPlaced = async (req, res) => {
+  try {
+    const orderId = req.query.id;
+    await Order.findByIdAndUpdate(orderId, { $set: { status: "placed" } });
+    res.redirect("/admin/orders");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports.orderShipping = async (req, res) => {
+  try {
+    const orderId = req.query.id;
+    await Order.findByIdAndUpdate(orderId, { $set: { status: "shipping" } });
+    res.redirect("/admin/orders");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports.orderDelivered = async (req, res) => {
+  try {
+    const orderId = req.query.id;
+    await Order.findByIdAndUpdate(orderId, { $set: { status: "delivered" } });
+    res.redirect("/admin/orders");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports.orderCancel = async (req, res) => {
+  try {
+    const orderId = req.query.id;
+    await Order.findByIdAndUpdate(orderId, { $set: { status: "cancel" } });
+    res.redirect("/admin/orders");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 ///////////////////////////////////////////////////////////
 
-module.exports.orderPlaced=async(req,res)=>{
+module.exports.addCoupen = async (req, res) => {
   try {
-    const orderId=req.query.id
-    await Order.findByIdAndUpdate(orderId,{$set:{status:"placed"},})
-    res.redirect('/admin/orders')
+    let coupen = req.body;
+    let Obj = {
+      code: coupen.code,
+      discount: coupen.discount,
+      minamount: coupen.minamount,
+      maxamount: coupen.maxamount,
+      enddate: coupen.enddate,
+      status: coupen.status,
+    };
+    await Coupen.create(Obj);
+    res.redirect("/admin/coupens");
   } catch (error) {
     console.log(error);
   }
-}
+};
 
-module.exports.orderShipping=async(req,res)=>{
+module.exports.coupenEnable = async (req, res) => {
   try {
-    const orderId=req.query.id
-    await Order.findByIdAndUpdate(orderId,{$set:{status:"shipping"},})
-    res.redirect('/admin/orders')
+    const coupenId = req.query.id;
+    await Coupen.findByIdAndUpdate(coupenId, { $set: { status: "enable" } });
+    res.redirect("/admin/coupens");
   } catch (error) {
     console.log(error);
   }
-}
+};
 
-module.exports.orderDelivered=async(req,res)=>{
+module.exports.coupenDisable = async (req, res) => {
   try {
-    const orderId=req.query.id
-    await Order.findByIdAndUpdate(orderId,{$set:{status:"delivered"},})
-    res.redirect('/admin/orders')
+    const coupenId = req.query.id;
+    await Coupen.findByIdAndUpdate(coupenId, { $set: { status: "disable" } });
+    res.redirect("/admin/coupens");
   } catch (error) {
     console.log(error);
   }
-}
-
-module.exports.orderCancel=async(req,res)=>{
-  try {
-    const orderId=req.query.id
-    await Order.findByIdAndUpdate(orderId,{$set:{status:"cancel"},})
-    res.redirect('/admin/orders')
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-
-///////////////////////////////////////////////////////////
-
-module.exports.addCoupen=async(req,res)=>{
-  try {
-    let coupen=req.body
-    let Obj={
-      code:coupen.code,
-      discount:coupen.discount,
-      minamount:coupen.minamount,
-      maxamount:coupen.maxamount,
-      enddate:coupen.enddate,
-      status:coupen.status
-    }
-    await Coupen.create(Obj)
-    res.redirect('/admin/coupens')
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-
-module.exports.coupenEnable=async(req,res)=>{
-  try {
-    const coupenId=req.query.id
-    await Coupen.findByIdAndUpdate(coupenId,{$set:{status:"enable"},})
-    res.redirect('/admin/coupens')
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-
-module.exports.coupenDisable=async(req,res)=>{
-  try {
-    const coupenId=req.query.id
-    await Coupen.findByIdAndUpdate(coupenId,{$set:{status:"disable"},})
-    res.redirect('/admin/coupens')
-  } catch (error) {
-    console.log(error);
-  }
-}
+};
 
 ///////////////////////////////////////////////////////////

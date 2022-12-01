@@ -76,6 +76,10 @@ router.get('/account',authmiddleware.checkAUserSNDAuth,profileController.account
 router.post('/editProfile',authmiddleware.checkAUserSNDAuth,profileController.editProfile)
 router.get('/cancelOrder',authmiddleware.checkAUserSNDAuth,profileController.cancelOrder)
 
+///////////////////////////////////////////////////////////
+
+router.post('/searchProduct',userController.searchproduct)
+
 
 
 

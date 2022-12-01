@@ -32,19 +32,19 @@ module.exports.loginpage = (req, res) => {
   res.render("user/userlogin");
 };
 
-module.exports.productquickview = async (req, res) => {
+module.exports.productquickview = async (req, res,next) => {
   try {
     const productId = req.query.id;
     const productDetails=await Products.findById(productId).populate("category");
     res.json(productDetails)  
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
 ///////////////////////////////////////////////////////////
 
-module.exports.userpostsignup = async (req, res) => {
+module.exports.userpostsignup = async (req, res,next) => {
   try {
     const userData = { ...req.body };
     let email = await User.findOne({ email: userData.email });
@@ -59,7 +59,7 @@ module.exports.userpostsignup = async (req, res) => {
       res.render("user/usersignup", { message: "Your email already defined" });
     }
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
@@ -91,7 +91,7 @@ module.exports.resendOtp = (req, res) => {
   res.redirect("/getotp");
 };
 
-module.exports.userpostLogin = async (req, res) => {
+module.exports.userpostLogin = async (req, res,next) => {
   try {
     const userLogindetails = req.body;
     let userEmail = await User.findOne({ email: userLogindetails.email });
@@ -121,7 +121,7 @@ module.exports.userpostLogin = async (req, res) => {
       res.render("user/userlogin", { message: "Your email is invalid" });
     }
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
@@ -132,15 +132,15 @@ module.exports.userLogout = (req, res) => {
 
 ///////////////////////////////////////////////////////////
 
-module.exports.lostPassword=async(req,res)=>{
+module.exports.lostPassword=async(req,res,next)=>{
   try {
     res.render('user/getotpChangePass')
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 }
 
-module.exports.changePass=async(req,res)=>{
+module.exports.changePass=async(req,res,next)=>{
   try {
      userNew=req.body
     const userFind= await User.findOne({email:userNew.email})
@@ -157,11 +157,11 @@ module.exports.changePass=async(req,res)=>{
       res.json({ status : "false"})
     }
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 }
 
-module.exports.postchangeOtp=async(req,res)=>{
+module.exports.postchangeOtp=async(req,res,next)=>{
   try {
    let changeDetail =req.body
    changeDetail.newPassword= await bcrypt.hash(changeDetail.newPassword,10)
@@ -176,9 +176,23 @@ module.exports.postchangeOtp=async(req,res)=>{
     }
   }
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 }
 
 
 ///////////////////////////////////////////////////////////
+
+module.exports.searchproduct=async(req,res,next)=>{
+  try {
+    const searchInpu= req.body.inputSearch;
+    const result=await Products.find({name:{$regex :searchInpu, $options:"i"}}).limit(5)
+    if (result) {
+      res.json({status : "success",result})
+    } else {
+      res.json({status : "false"})
+    }
+  } catch (error) {
+    next(error)
+  }
+}

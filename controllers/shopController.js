@@ -5,7 +5,7 @@ const Cart = require("../model/cartSchema");
 
 ///////////////////////////////////////////////////////////
 
-module.exports.shopPage = async (req, res) => {
+module.exports.shopPage = async (req, res,next) => {
   try {
     const userKO = req.session.userKO;
     const cart = await Cart.findOne({ user: userKO })
@@ -19,7 +19,7 @@ module.exports.shopPage = async (req, res) => {
     res.locals.productDetails = products;
     res.render("user/shop");
   } catch (error) {
-    console.log(error);
+   next(error)
   }
 };
 

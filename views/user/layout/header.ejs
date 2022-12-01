@@ -200,20 +200,36 @@
                         </div>
                     </div>
                     <div class="header-action-items header-action-items1">
+
+
+
+
+
+<!-- Search -->
+
                         <div class="search-part">
                             <div class="search-icon action-item icon"><i class="fa fa-search"></i></div>
                             <div class="search-input-area">
                                 <div class="container">
                                     <div class="search-input-inner">
                                         <div class="input-div">
-                                            <input id="searchInput1" class="search-input" type="text"
+                                            <input id="searchInpuT" class="search-input" type="text" onkeyup="searchPro()"
                                                 placeholder="Search">
+                                                <ul id="suggestions" class="text-center" style="display: table; margin: 0 auto;">
+
+                                                </ul>
                                         </div>
                                         <div class="search-close-icon"><i class="rt-xmark"></i></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+<!-- Search -->
+
+
+
+
                         <div class="cart action-item">
                             <div class="cart-nav">
                                 <div class="cart-icon icon">
@@ -441,6 +457,68 @@
 
     
     <script>
+
+
+
+ function searchPro() {
+    var inputSearch=document.getElementById('searchInpuT').value
+    if (inputSearch == "" || inputSearch == null) {
+        $("#suggestions").empty();
+        return;
+    }
+    $.ajax({
+        url:`/searchProduct`,
+        method:'post',
+        data:{
+            inputSearch
+        },
+        success:(response)=>{
+            if (response.status==='success') {
+                $("#suggestions").empty();
+                for (var i = 0; i < response.result.length; i++) {
+
+                    var name = response.result[i].name;
+
+                    n = 33;
+                    var shortName;
+                    if (name.length > n) {
+                        shortName = name.substring(0,n);
+                        shortName += "...";
+                    }else{
+                        shortName = name;
+                    }
+                    
+                    
+                     html = `
+                                             
+                     <li class="d-flex justify-content-between" style="border-bottom: 1px solid #e7e7e7;">
+                        <a href="/productDetail?id=${response.result[i]._id}">
+                                        <img class="img-fluid  rounded-pill" style="width:75px;" src="data:${response.result[i].product_image[0].contentType};base64,${response.result[i].product_image[0].imageBase64}"
+                                                alt="Post Img"></a>
+                                                <a href="/productDetail?id=${response.result[i]._id}">
+                                            <p class="font-weight-light" title="${name}">${shortName}</p>
+                                            </a>
+                        </a> 
+                     </li>
+                     
+
+
+
+                     
+                     `;
+                     $("#suggestions").append(html);
+        }
+            } else {
+                console.log("illa");
+            }
+        }
+    })
+ }
+
+
+
+
+
 
 
 function getCartlist() {
