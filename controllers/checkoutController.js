@@ -37,7 +37,7 @@ async function getTotalprice(userId) {
 
 ///////////////////////////////////////////////////////////
 
-module.exports.coupenapply = async (req, res) => {
+module.exports.coupenapply = async (req, res,next) => {
   try {
     let message;
     const userKO = req.session.userKO;
@@ -89,13 +89,13 @@ module.exports.coupenapply = async (req, res) => {
 
 
   }catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
 ///////////////////////////////////////////////////////////
 
-module.exports.checkoutPage = async (req, res) => {
+module.exports.checkoutPage = async (req, res,next) => {
   try {
     res.locals.user = req.session.user;
     const userKO = req.session.userKO;
@@ -125,13 +125,13 @@ module.exports.checkoutPage = async (req, res) => {
 
     res.render("user/checkout",{coupenCount});
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
 ///////////////////////////////////////////////////////////
 
-module.exports.thankYoupage = async (req, res) => {
+module.exports.thankYoupage = async (req, res,next) => {
   try {
     const userKO = req.session.userKO;
     const cart = await Cart.findOne({ user: userKO })
@@ -156,13 +156,13 @@ module.exports.thankYoupage = async (req, res) => {
     res.locals.coupenDetails = coupen;
     res.render("user/thankyou", { moment: moment });
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
 ///////////////////////////////////////////////////////////
 
-module.exports.addAddress = async (req, res) => {
+module.exports.addAddress = async (req, res,next) => {
   try {
     let userId = req.session.user._id;
     const addressDetails = req.body;
@@ -179,11 +179,11 @@ module.exports.addAddress = async (req, res) => {
       res.json({ status: "false" });
     }
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
-module.exports.removeAddress = async (req, res) => {
+module.exports.removeAddress = async (req, res,next) => {
   try {
     const addressId = req.query.id;
     const userId = req.session.userKO;
@@ -191,13 +191,13 @@ module.exports.removeAddress = async (req, res) => {
       $pull: { address: { _id: addressId } },
     });
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
 ///////////////////////////////////////////////////////////
 
-module.exports.placeOrder = async (req, res) => {
+module.exports.placeOrder = async (req, res,next) => {
   try {
     let userId = req.session.user._id;
     let addressId = req.query.addressId;
@@ -290,13 +290,13 @@ module.exports.placeOrder = async (req, res) => {
       }
     });
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
 ///////////////////////////////////////////////////////////
 
-module.exports.verifyPayment = async (req, res) => {
+module.exports.verifyPayment = async (req, res,next) => {
   try {
     const userId = req.session.user._id;
     const details = req.body;
@@ -331,6 +331,6 @@ module.exports.verifyPayment = async (req, res) => {
       console.log("Something error");
     }
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };

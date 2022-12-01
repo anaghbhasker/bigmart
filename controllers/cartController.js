@@ -28,7 +28,7 @@ async function getTotalprice(userId) {
 
 ///////////////////////////////////////////////////////////
 
-module.exports.cartPage = async (req, res) => {
+module.exports.cartPage = async (req, res,next) => {
   try {
     const userKO = req.session.userKO;
     const cart = await Cart.findOne({ user: userKO })
@@ -49,13 +49,13 @@ module.exports.cartPage = async (req, res) => {
 
     res.render("user/cartlist");
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
 ///////////////////////////////////////////////////////////
 
-module.exports.addCart = async (req, res) => {
+module.exports.addCart = async (req, res,next) => {
   try {
     const userId = req.session.user._id;
     const productId = mongoose.Types.ObjectId(req.query.id);
@@ -86,11 +86,11 @@ module.exports.addCart = async (req, res) => {
       res.json({ status: "success" });
     }
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
-module.exports.removeCart = async (req, res) => {
+module.exports.removeCart = async (req, res,next) => {
   try {
     const productId = mongoose.Types.ObjectId(req.query.id);
     const userId = mongoose.Types.ObjectId(req.session.user._id);
@@ -98,13 +98,13 @@ module.exports.removeCart = async (req, res) => {
     cart.products.pull({ item: productId });
     await cart.save();
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
 ///////////////////////////////////////////////////////////
 
-module.exports.qudtyIncre = async (req, res) => {
+module.exports.qudtyIncre = async (req, res,next) => {
   try {
     const userId = mongoose.Types.ObjectId(req.session.user._id);
     const { id, quantity, count } = req.body;
@@ -134,6 +134,6 @@ module.exports.qudtyIncre = async (req, res) => {
 
     res.json({ status: true, total, subtotal, totaldiscount });
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };

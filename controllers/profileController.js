@@ -16,7 +16,7 @@ const moment = require("moment");
 ///////////////////////////////////////////////////////////
 
 
-module.exports.accountPage=async(req,res)=>{
+module.exports.accountPage=async(req,res,next)=>{
     try {
       const userKO=req.session.userKO
       const cart = await Cart.findOne({user:userKO}).populate('user').populate('products')
@@ -38,14 +38,14 @@ module.exports.accountPage=async(req,res)=>{
       res.locals.coupenDetails=coupen
       res.render('user/account',{ moment: moment })
     } catch (error) {
-      console.log(error);
+      next(error)
     }
   }
 
 
 
 
-  module.exports.editProfile=async(req,res)=>{
+  module.exports.editProfile=async(req,res,next)=>{
     try {
         const userId = req.session.user._id
         const userDetail=req.body
@@ -68,17 +68,17 @@ module.exports.accountPage=async(req,res)=>{
         await User.findByIdAndUpdate(userId,newObj)
         res.redirect('/userlogin')
     } catch (error) {
-        console.log(error);
+      next(error)
     }
   }
 
 
 
-  module.exports.cancelOrder=async(req,res)=>{
+  module.exports.cancelOrder=async(req,res,next)=>{
     try {
         const orderId=req.query.id
         await Order.findByIdAndUpdate(orderId,{$set:{status:"cancel"},})
     } catch (error) {
-        console.log(error);
+      next(error)
     }
   }

@@ -23,7 +23,7 @@ module.exports.shopPage = async (req, res,next) => {
   }
 };
 
-module.exports.wishList = async (req, res) => {
+module.exports.wishList = async (req, res,next) => {
   try {
     const userKO = req.session.userKO;
     const cart = await Cart.findOne({ user: userKO })
@@ -36,22 +36,22 @@ module.exports.wishList = async (req, res) => {
     res.locals.productsDetails = result;
     res.render("user/wishlist");
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 ///////////////////////////////////////////////////////////
 
-module.exports.getProduct = async (req, res) => {
+module.exports.getProduct = async (req, res,next) => {
   try {
     const categoryId = req.query.id;
     const product = await Products.find({ category: categoryId });
     res.json(product);
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
-module.exports.productDetails = async (req, res) => {
+module.exports.productDetails = async (req, res,next) => {
   try {
     res.locals.user = req.session.user;
     const productId = req.query.id;
@@ -61,11 +61,11 @@ module.exports.productDetails = async (req, res) => {
     res.locals.productDetails = productDetail;
     res.render("user/productDetails");
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
-module.exports.productDetail = async (req, res) => {
+module.exports.productDetail = async (req, res,next) => {
   try {
     const userKO=req.session.userKO
     const cart = await Cart.findOne({user:userKO}).populate('user').populate('products')
@@ -78,11 +78,11 @@ module.exports.productDetail = async (req, res) => {
     res.locals.productDetails = productDetail;
     res.render("user/productDetails");
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
-module.exports.addWishlist = async (req, res) => {
+module.exports.addWishlist = async (req, res,next) => {
   try {
     let userId = req.session.user._id;
     let productId = req.query.id;
@@ -97,11 +97,11 @@ module.exports.addWishlist = async (req, res) => {
       res.json({ status: "false" });
     }
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
 
-module.exports.removeWishlist = async (req, res) => {
+module.exports.removeWishlist = async (req, res,next) => {
   try {
     let user = req.session.user;
     let productId = req.query.id;
@@ -114,6 +114,6 @@ module.exports.removeWishlist = async (req, res) => {
       console.log("Please Login Your Account");
     }
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 };
