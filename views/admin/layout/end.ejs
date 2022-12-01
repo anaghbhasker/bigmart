@@ -115,16 +115,21 @@ $("#cateButton").click(function () {
   }
 });
 
-bannerdescription
-
 $("#bannerBtn").click(function () {
   $(".errorMessages").hide();
   var hasError = false;  
-  var bannedes=$("#bannerdescription").val();
-  var bannenameVal = $("#bannername").val();
+  var bannername1=$("#bannername1").val();
+  var bannername2 = $("#bannername2").val();
+  var bannerprice = $("#bannerprice").val();
   var banneimgVal = $("#bannerimage").val();        
 
-  if (bannenameVal == "") {
+  if (bannername1 == "") {
+    $("#errorBanename").after(
+      '<p class="errorMessages" >Please enter your banner tittle.</p>'
+    );
+    hasError = true;
+  }
+  if (bannername2 == "") {
     $("#errorBanename").after(
       '<p class="errorMessages" >Please enter your banner tittle.</p>'
     );
@@ -136,7 +141,7 @@ $("#bannerBtn").click(function () {
     );
     hasError = true;
   } 
-  if (bannedes == "") {
+  if (bannerprice == "") {
     $("#errorBandes").after(
       '<p class="errorMessages">Please enter your banner description</p>'
     );

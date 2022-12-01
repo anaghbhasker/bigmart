@@ -23,7 +23,7 @@
 
 
 
-                      <% if (typeof(todayIncome) == "undefined" || !todayIncome || todayIncome.length==0) { %>
+                      <% if (todayIncome.length==0) { %>
                        
                         <h3 class="mb-0">0₹</h3>
                         <% } else { %>
@@ -445,14 +445,45 @@
 <script>
   var ctx = document.getElementById("myChart").getContext('2d');
   const valuess = $('#myChart').data('chart')
-  console.log(valuess)
+  let arr=[]
+
+
+
+   var jan = valuess.find((el)=>el._id==1)
+   jan==null||jan==undefined?arr.push(0):arr.push(jan.totalamount)
+   var feb = valuess.find((el)=>el._id==2)
+   feb==null||feb==undefined?arr.push(0):arr.push(feb.totalamount)
+   var Mar = valuess.find((el)=>el._id==3)
+   Mar==null||Mar==undefined?arr.push(0):arr.push(Mar.totalamount)
+   var Apr = valuess.find((el)=>el._id==4)
+   Apr==null||Apr==undefined?arr.push(0):arr.push(Apr.totalamount)
+   var May = valuess.find((el)=>el._id==5)
+   May==null||May==undefined?arr.push(0):arr.push(May.totalamount)
+   var June = valuess.find((el)=>el._id==6)
+   June==null||June==undefined?arr.push(0):arr.push(June.totalamount)
+   var July = valuess.find((el)=>el._id==7)
+   July==null||July==undefined?arr.push(0):arr.push(July.totalamount)
+   var Aug = valuess.find((el)=>el._id==8)
+   Aug==null||Aug==undefined?arr.push(0):arr.push(Aug.totalamount)
+   var Sep = valuess.find((el)=>el._id==9)
+   Sep==null||Sep==undefined?arr.push(0):arr.push(Sep.totalamount)
+   var Oct = valuess.find((el)=>el._id==10)
+   Oct==null||Oct==undefined?arr.push(0):arr.push(Oct.totalamount)
+   var Nov = valuess.find((el)=>el._id==11)
+   Nov==null||Nov==undefined?arr.push(0):arr.push(Nov.totalamount)
+   var Dec = valuess.find((el)=>el._id==12)
+   Dec==null||Dec==undefined?arr.push(0):arr.push(Dec.totalamount)
+
+
+
+  console.log(arr);
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "June","July","Aug","Sep","Oct","Nov","Dec"],
       datasets: [{
         label: '# of Votes',
-        data: [1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000],
+        data: arr,
         backgroundColor: [
           'rgba(54, 162, 235, 0.2)',
           'rgba(54, 162, 235, 0.2)',

@@ -15,13 +15,15 @@ module.exports.indexpage = async (req, res) => {
   try {
     // console.log(moment().format('LL'));
     let todayDate = new Date();
+    let todayDateDay = new Date(moment().startOf('day'));
     let oneWeekAgo = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
+
 
     /////todayIncome
     let todayIncome = await Order.aggregate([
       {
         $match: {
-          createdAt: { todayDate },
+          createdAt: { $gte : todayDateDay} ,
         },
       },
       {
@@ -31,6 +33,8 @@ module.exports.indexpage = async (req, res) => {
         },
       },
     ]);
+
+
 
     /////Last7daysIncome
     let last7daysIncome = await Order.aggregate([
@@ -65,6 +69,9 @@ module.exports.indexpage = async (req, res) => {
     res.locals.todayIncome = todayIncome;
     res.locals.LastSEVENIncome = last7daysIncome;
     res.locals.totalIncome = totalIncome;
+    
+///////////////
+
 
     let totalOrderCancel = await Order.aggregate([
       {
