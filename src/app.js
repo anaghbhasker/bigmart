@@ -24,7 +24,7 @@ app.use(
 
 connectDb(DATABASE_URL);
 
-// app.use(logger("dev"));
+app.use(logger("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
