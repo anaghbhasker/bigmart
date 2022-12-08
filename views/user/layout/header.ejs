@@ -30,6 +30,7 @@
 
 
 
+
 <!--================= Header Section Start Here =================-->
 <header id="rtsHeader">
     <div class="header-topbar header-topbar1">
@@ -147,6 +148,28 @@
                             </a>
                         </div>
                         <a href="/" class="logo"><img src="assets/images/bigmart-logo.png" alt="weiboo-logo"></a>
+
+                        <!-- Search -->
+
+                        <div class="search-part mobile-search">
+                            <div class="search-icon action-item icon"><i class="fa fa-search"></i></div>
+                            <div class="search-input-area">
+                                <div class="container">
+                                    <div class="search-input-inner">
+                                        <div class="input-div">
+                                            <input id="searchInpuTmoble" class="search-input" type="text" onkeyup="searchProMoble()"
+                                                placeholder="Search">
+                                                <ul id="suggestionsMobile" class="text-center" style="display: table; margin: 0 auto;">
+
+                                                </ul>
+                                        </div>
+                                        <div class="search-close-icon"><i class="rt-xmark"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Search -->
                     </div>
                     <div class="rts-menu">
                         <nav class="menus menu-toggle">
@@ -332,130 +355,85 @@
         <!-- side-mobile-menu start -->
         <nav class="side-mobile-menu side-mobile-menu1">
             <ul id="mobile-menu-active">
-                <li class="has-dropdown firstlvl">
-                    <a class="mm-link" href="index.html">Home <i class="rt-angle-down"></i></a>
-                    <ul class="sub-menu">
-                        <li><a href="index.html">Main Home</a></li>
-                        <li><a href="index-two.html">Fashion Home</a></li>
-                        <li><a href="index-three.html">Furniture Home</a></li>
-                        <li><a href="index-four.html">Decor Home</a></li>
-                        <li><a href="index-five.html">Electronics Home</a></li>
-                        <li><a href="index-six.html">Grocery Home</a></li>
-                        <li><a href="index-seven.html">Footwear Home</a></li>
-                        <li><a href="index-seven.html">Gaming Home</a></li>
-                    </ul>
+
+
+
+
+
+                <li class="">
+                    <a href="/" class="mm-link">Home <i class="rt-angle-down"></i></a>
                 </li>
-                <li class="has-dropdown firstlvl">
-                    <a class="mm-link" href="shop.html">Shop <i class="rt-angle-down"></i></a>
-                    <ul class="sub-menu mega-dropdown-mobile">
-                        <li class="mega-dropdown-li">
-                            <ul class="mega-dropdown-ul mm-show">
-                                <li class="dropdown-li"><a class="dropdown-link" href="shop.html">Shop</a>
-                                </li>
-                                <li class="dropdown-li"><a class="dropdown-link" href="slidebar-left.html">Left Sidebar
-                                        Shop</a>
-                                </li>
-                                <li class="dropdown-li"><a class="dropdown-link" href="slidebar-right.html">Right Sidebar
-                                        Shop</a>
-                                </li>
-                                <li class="dropdown-li"><a class="dropdown-link" href="full-width-shop.html">Full
-                                        Width Shop</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="mega-dropdown-li">
-                            <ul class="mega-dropdown-ul mm-show">
-                                <li class="dropdown-li"><a class="dropdown-link" href="product-details.html">Single Product
-                                        Layout
-                                        One</a>
-                                </li>
-                                <li class="dropdown-li"><a class="dropdown-link"
-                                        href="product-details2.html">Single Product Layout
-                                        Two</a>
-                                </li>
-                                <li class="dropdown-li"><a class="dropdown-link" href="variable-products.html">Variable Product</a>
-                                </li>
-                                <li class="dropdown-li"><a class="dropdown-link" href="grouped-products.html">Grouped Product</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="mega-dropdown-li">
-                            <ul class="mega-dropdown-ul mm-show">
-                                <li class="dropdown-li"><a class="dropdown-link" href="cart.html">Cart
-                                        </a>
-                                </li>
-                                <li class="dropdown-li"><a class="dropdown-link"
-                                        href="checkout.html">Checkout</a>
-                                </li>
-                                <li class="dropdown-li"><a class="dropdown-link"
-                                        href="account.html">My
-                                        Account</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+
+
+
+                <li class="">
+                    <a class="mm-link" href="/shopPage">Shop <i class="rt-angle-down"></i></a>
                 </li>
-                <li class="has-dropdown firstlvl">
-                    <a class="mm-link" href="index.html">Pages <i class="rt-angle-down"></i></a>
-                    <ul class="sub-menu">
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="faq.html">FAQ's</a></li>
-                        <li><a href="error.html">Error 404</a></li>
-                    </ul>
-                </li>
-                <li class="has-dropdown firstlvl">
-                    <a class="mm-link" href="news.html">Blog <i class="rt-angle-down"></i></a>
-                    <ul class="sub-menu">
-                        <li><a href="news.html">Blog</a></li>
-                        <li><a href="news-grid.html">Blog Grid</a></li>
-                        <li><a href="news-details.html">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a class="mm-link" href="contact.html">Contact</a></li>
+                
+
+
+                <% if (typeof(user) == "undefined" || !user ) { %>
+
+
+                    <li class="has-dropdown firstlvl">
+                        <a class="mm-link">Account <i class="rt-angle-down"></i></a>
+                        <ul class="sub-menu">
+                            <li><a href="/userlogin">Login</a></li>
+                            <li><a href="/usersignup">Sign Up</a></li>  
+                        </ul>
+                    </li>
+
+
+
+                <% } else { %>
+
+
+                    <li class="has-dropdown firstlvl">
+                        <a class="mm-link" href="#">Pages <i class="rt-angle-down"></i></a>
+                        <ul class="sub-menu">
+                            <li><a href="/cartlist">Cart</a></li>
+                            <li><a href="/wishlist">Wishlist</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="">
+                        <a class="mm-link" href="/account">My Account <i class="rt-angle-down"></i></a>
+                    </li>
+
+                    <li><a class="mm-link" href="#">Contact</a></li>
+
+
+
+                <% } %> 
+
             </ul>
         </nav>
-        <div class="header-action-items header-action-items1 header-action-items-side">
-            <div class="search-part">
-                <div class="search-icon action-item icon"><i class="rt-search"></i></div>
-                <div class="search-input-area">
-                    <div class="container">
-                        <div class="search-input-inner">
-                            <select id="custom-select">
-                                <option value="hide">All Catagory</option>
-                                <option value="all">All</option>
-                                <option value="men">Men</option>
-                                <option value="women">Women</option>
-                                <option value="shoes">Shoes</option>
-                                <option value="shoes">Glasses</option>
-                                <option value="shoes">Bags</option>
-                                <option value="shoes">Assesories</option>
-                            </select>
-                            <div class="input-div">
-                                <div class="search-input-icon"><i class="rt-search mr--10"></i></div>
-                                <input class="search-input" type="text" placeholder="Search by keyword or #">
-                            </div>
-                            <div class="search-close-icon"><i class="rt-xmark"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="cart action-item">
-                <div class="cart-nav">
-                    <div class="cart-icon icon"><i class="rt-cart"></i><span class="wishlist-dot icon-dot">3</span>
-                    </div>
-                </div>
-            </div>
-            <div class="wishlist action-item">
-                <div class="favourite-icon icon"><i class="rt-heart"></i><span class="cart-dot icon-dot">0</span>
-                </div>
-            </div>
-            <a href="login.html" class="account"><i class="rt-user-2"></i></a>
-        </div>
+
+
+        
+        
         <!-- side-mobile-menu end -->
     </aside>
     </header>
 
-    
+
+
+
+    <style>
+        @media (min-width: 500px) {
+  .navbar-part1 .mobile-search {
+    display: none;
+  }
+}
+
+.mobile-search .action-item{
+    padding-left: 130px;
+}
+    </style>
+
+
+
+
     <script>
 
 
@@ -464,6 +442,7 @@
     var inputSearch=document.getElementById('searchInpuT').value
     if (inputSearch == "" || inputSearch == null) {
         $("#suggestions").empty();
+        
         return;
     }
     $.ajax({
@@ -475,6 +454,7 @@
         success:(response)=>{
             if (response.status==='success') {
                 $("#suggestions").empty();
+                
                 for (var i = 0; i < response.result.length; i++) {
 
                     var name = response.result[i].name;
@@ -507,6 +487,7 @@
                      
                      `;
                      $("#suggestions").append(html);
+                    
         }
             } else {
                 console.log("illa");
@@ -514,6 +495,73 @@
         }
     })
  }
+
+
+
+
+
+ function searchProMoble() {
+    var inputSearch=document.getElementById('searchInpuTmoble').value
+    if (inputSearch == "" || inputSearch == null) {
+        $("#suggestionsMobile").empty();
+        
+        return;
+    }
+    $.ajax({
+        url:`/searchProduct`,
+        method:'post',
+        data:{
+            inputSearch
+        },
+        success:(response)=>{
+            if (response.status==='success') {
+                $("#suggestionsMobile").empty();
+                
+                for (var i = 0; i < response.result.length; i++) {
+
+                    var name = response.result[i].name;
+
+                    n = 33;
+                    var shortName;
+                    if (name.length > n) {
+                        shortName = name.substring(0,n);
+                        shortName += "...";
+                    }else{
+                        shortName = name;
+                    }
+                    
+                    
+                     html = `
+                                             
+                     <li class="d-flex justify-content-between" style="border-bottom: 1px solid #e7e7e7;">
+                        <a href="/productDetail?id=${response.result[i]._id}">
+                                        <img class="img-fluid  rounded-pill" style="width:75px;" src="data:${response.result[i].product_image[0].contentType};base64,${response.result[i].product_image[0].imageBase64}"
+                                                alt="Post Img"></a>
+                                                <a href="/productDetail?id=${response.result[i]._id}">
+                                            <p class="font-weight-light" title="${name}">${shortName}</p>
+                                            </a>
+                        </a> 
+                     </li>
+                     
+
+
+
+                     
+                     `;
+                     $("#suggestionsMobile").append(html);
+                    
+        }
+            } else {
+                console.log("illa");
+            }
+        }
+    })
+ }
+
+
+
+
+
 
 
 
