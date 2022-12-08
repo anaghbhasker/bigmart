@@ -1,3 +1,6 @@
+
+const User = require("../model/userSchema");
+
 module.exports.checkAdminAuth = async(req,res,next) => {
    
     let session = req.session.adminLogged
@@ -28,7 +31,8 @@ module.exports.checkAUserSNDAuth = async(req,res,next) => {
    
     let session = req.session.userLogged
     if(session){
-        const block=req.session.user
+        const userBlockId = req.session.userKO
+        const block=await User.findById(userBlockId)
         if (block.isBanned===false) {
             next()
         } else {
