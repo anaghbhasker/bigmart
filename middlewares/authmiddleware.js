@@ -28,7 +28,12 @@ module.exports.checkAUserSNDAuth = async(req,res,next) => {
    
     let session = req.session.userLogged
     if(session){
-        next()
+        const block=req.session.user
+        if (block.isBanned===false) {
+            next()
+        } else {
+            res.redirect('/userlogin')
+        }
     }
     else if(!session){
         res.redirect('/userlogin')
